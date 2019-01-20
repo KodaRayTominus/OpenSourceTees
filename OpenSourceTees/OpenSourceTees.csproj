@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201901200235531_initial.Designer.cs">
       <DependentUpon>201901200235531_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901200336167_BlobStorage.cs" />
+    <Compile Include="Migrations\201901200336167_BlobStorage.Designer.cs">
+      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
@@ -282,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901200235531_initial.resx">
       <DependentUpon>201901200235531_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901200336167_BlobStorage.resx">
+      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

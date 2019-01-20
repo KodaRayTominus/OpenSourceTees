@@ -12,5 +12,6 @@ namespace OpenSourceTees.Models
         string DesignerName { get; set; }
         string DesignerId { get; set; }
         string Description { get; set; }
+        Image design { get; set; }
     }
 }
