@@ -47,25 +47,25 @@ namespace OpenSourceTees.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file, [Bind(Include ="DesignName, Description, Price")] Image image)
+        public ActionResult UploadImage(TeeShirtUploadViewModel tee)
         {
-            if (file != null)
+            if (tee.File != null)
             {
                 string ContainerName = "blobs"; //hardcoded container name. 
-                file = file ?? Request.Files["file"];
-                string fileName = Path.GetFileName(file.FileName);
-                Stream imageStream = file.InputStream;
+                tee.File = tee.File ?? Request.Files["file"];
+                string fileName = Path.GetFileName(tee.File.FileName);
+                Stream imageStream = tee.File.InputStream;
                 var result = utility.UploadBlob(fileName, ContainerName, imageStream);
                 if (result != null)
                 {
                     string loggedInUserId = User.Identity.GetUserId();
                     Image userimage = new Image();
                     userimage.Id = new Random().Next().ToString();
-                    userimage.UserId = loggedInUserId;
                     userimage.ImageUrl = result.Uri.ToString();
-                    userimage.Description = image.Description;
-                    userimage.DesignName = image.DesignName;
-                    userimage.Price = image.Price;
+                    userimage.UserId = loggedInUserId;
+                    userimage.Description = tee.Image.Description;
+                    userimage.DesignName = tee.Image.DesignName;
+                    userimage.Price = tee.Image.Price;
                     db.Images.Add(userimage);
                     db.SaveChanges();
                     return RedirectToAction("Index");
