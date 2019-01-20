@@ -7,7 +7,7 @@
 
 
     <div class="row">
-        @using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("UploadImage", "Design", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
 
@@ -43,7 +43,7 @@
                 <a class="thumbnail" href="@item.ImageUrl">
                     <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="">
                 </a>
-                <a href="@Url.Action("DeleteImage", "Home",new { id = item.Id })" class="btn btn-default btn-block">
+                <a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
 

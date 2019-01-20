@@ -36,7 +36,7 @@ namespace OpenSourceTees.Controllers
             db.Images.Remove(userImage);
             db.SaveChanges();
             string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
-            utility.DeleteBlob(BlobNameToDelete, "jsr");
+            utility.DeleteBlob(BlobNameToDelete, "blob");
             return RedirectToAction("Index");
         }
 
@@ -45,7 +45,7 @@ namespace OpenSourceTees.Controllers
         {
             if (file != null)
             {
-                string ContainerName = "jsr"; //hardcoded container name. 
+                string ContainerName = "blob"; //hardcoded container name. 
                 file = file ?? Request.Files["file"];
                 string fileName = Path.GetFileName(file.FileName);
                 Stream imageStream = file.InputStream;
