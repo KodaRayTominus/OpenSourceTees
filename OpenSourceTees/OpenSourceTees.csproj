@@ -278,6 +278,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Design\Index.cshtml" />
     <Content Include="Views\Design\UploadImage.cshtml" />
+    <Content Include="Views\Design\GuestIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

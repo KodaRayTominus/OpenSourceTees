@@ -30,6 +30,14 @@ namespace OpenSourceTees.Controllers
             return View(userImages);
         }
 
+        public ActionResult GuestIndex()
+        {
+            string loggedInUserId = User.Identity.GetUserId();
+            List<Image> userImages = (from r in db.Images select r).ToList();
+            ViewBag.PhotoCount = userImages.Count;
+            return View(userImages);
+        }
+
         public ActionResult DeleteImage(string id)
         {
             Image userImage = db.Images.Find(id);
