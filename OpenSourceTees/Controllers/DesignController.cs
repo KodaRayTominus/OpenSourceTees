@@ -2,6 +2,7 @@
 using OpenSourceTees.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,8 +32,8 @@ namespace OpenSourceTees.Controllers
 
         public ActionResult DeleteImage(string id)
         {
-            UserImage userImage = db.UserImages.Find(id);
-            db.UserImages.Remove(userImage);
+            Image userImage = db.Images.Find(id);
+            db.Images.Remove(userImage);
             db.SaveChanges();
             string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
             utility.DeleteBlob(BlobNameToDelete, "jsr");
@@ -52,11 +53,11 @@ namespace OpenSourceTees.Controllers
                 if (result != null)
                 {
                     string loggedInUserId = User.Identity.GetUserId();
-                    UserImage userimage = new UserImage();
+                    Image userimage = new Image();
                     userimage.Id = new Random().Next().ToString();
                     userimage.UserId = loggedInUserId;
                     userimage.ImageUrl = result.Uri.ToString();
-                    db.UserImages.Add(userimage);
+                    db.Images.Add(userimage);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
