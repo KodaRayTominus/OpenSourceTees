@@ -3,7 +3,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.IO;
 
-namespace MiniaturesRUs.Models
+namespace OpenSourceTees.Models
 {
     public class BlobUtility
     {

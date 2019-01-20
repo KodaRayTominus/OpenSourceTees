@@ -19,25 +19,25 @@ namespace OpenSourceTees
         {
             ApplicationDbContext context = new ApplicationDbContext();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            if (roleManager.RoleExists("Visitor"))
+            if (!roleManager.RoleExists("Visitor"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Visitor";
                 roleManager.Create(role);
             }
-            if (roleManager.RoleExists("User"))
+            if (!roleManager.RoleExists("User"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "User";
                 roleManager.Create(role);
             }
-            if (roleManager.RoleExists("Creator"))
+            if (!roleManager.RoleExists("Creator"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Creator";
                 roleManager.Create(role);
             }
-            if (roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists("Admin"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Admin";

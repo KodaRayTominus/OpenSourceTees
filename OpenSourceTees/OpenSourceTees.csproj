@@ -180,6 +180,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DesignController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +193,14 @@
     <Compile Include="Migrations\201901200235531_initial.cs" />
     <Compile Include="Migrations\201901200235531_initial.Designer.cs">
       <DependentUpon>201901200235531_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901200336167_BlobStorage.cs" />
+    <Compile Include="Migrations\201901200336167_BlobStorage.Designer.cs">
+      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901200350401_BlobStorage1.1.cs" />
+    <Compile Include="Migrations\201901200350401_BlobStorage1.1.Designer.cs">
+      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -259,6 +268,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Design\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -282,6 +292,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901200235531_initial.resx">
       <DependentUpon>201901200235531_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901200336167_BlobStorage.resx">
+      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901200350401_BlobStorage1.1.resx">
+      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
