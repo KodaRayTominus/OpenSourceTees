@@ -29,12 +29,13 @@ namespace OpenSourceTees.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet Images { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Image> Images { get; set; }
 
         public static ApplicationDbContext Create()
         {
