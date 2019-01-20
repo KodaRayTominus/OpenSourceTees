@@ -40,8 +40,14 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult UploadImage()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file)
+        public ActionResult UploadImage(HttpPostedFileBase file, [Bind(Include ="DesignName, Description, Price")] Image image)
         {
             if (file != null)
             {
@@ -57,6 +63,9 @@ namespace OpenSourceTees.Controllers
                     userimage.Id = new Random().Next().ToString();
                     userimage.UserId = loggedInUserId;
                     userimage.ImageUrl = result.Uri.ToString();
+                    userimage.Description = image.Description;
+                    userimage.DesignName = image.DesignName;
+                    userimage.Price = image.Price;
                     db.Images.Add(userimage);
                     db.SaveChanges();
                     return RedirectToAction("Index");

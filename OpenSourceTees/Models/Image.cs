@@ -13,7 +13,14 @@ namespace OpenSourceTees.Models
 
         public string UserId { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public string DesignName { get; set; }
 
+        public string[] Tags { get; set; }
+
+        public string Description { get; set; }
+
+        public double Price { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

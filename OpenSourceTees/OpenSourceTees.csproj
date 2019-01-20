@@ -202,13 +202,20 @@
     <Compile Include="Migrations\201901200350401_BlobStorage1.1.Designer.cs">
       <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901200438469_BlobStorage1.2.cs" />
+    <Compile Include="Migrations\201901200438469_BlobStorage1.2.Designer.cs">
+      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901200455211_BlobStorage1.3.cs" />
+    <Compile Include="Migrations\201901200455211_BlobStorage1.3.Designer.cs">
+      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TeeShirt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -269,6 +276,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Design\Index.cshtml" />
+    <Content Include="Views\Design\UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,6 +306,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901200350401_BlobStorage1.1.resx">
       <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901200438469_BlobStorage1.2.resx">
+      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901200455211_BlobStorage1.3.resx">
+      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
