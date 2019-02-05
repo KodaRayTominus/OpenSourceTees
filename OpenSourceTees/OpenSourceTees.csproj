@@ -229,6 +229,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Js\b4w.min.js" />
     <Content Include="Js\TeeShirt.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -304,7 +305,10 @@
     <Content Include="webplayer\src\img\weibo.svg" />
     <Content Include="webplayer\src\js\locale.js" />
     <Content Include="webplayer\src\js\webplayer.js" />
+    <Content Include="webplayer\TeeShirtToExport.html" />
     <Content Include="webplayer\webpack.config.js" />
+    <Content Include="Design\TeeShirtToExport.bin" />
+    <Content Include="Design\TeeShirtToExport.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
