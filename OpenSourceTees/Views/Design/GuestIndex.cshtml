@@ -30,7 +30,7 @@
     </style>
 
     <script src="~/Js/b4w.min.js"></script>
-    <script src="~/Js/TeeShirt.js"></script>
+    @*<script type="text/javascript" src="~/Js/TeeShirt.js"></script>*@
 
 </head>
 
@@ -60,15 +60,11 @@
         {
             <tr>
                 <td>
-                    <a class="thumbnail" href="@item.ImageUrl">
-                        <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="">
-                    </a>
-                    <a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                    <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="" onclick="load_image(this)">
+
+                    @*<a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DesignName)
@@ -79,13 +75,101 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
             </tr>
         }
 
     </table>
 </body>
+
+<script>
+    "use strict"
+
+    var load_image;
+    var m_app;
+    var m_cfg;
+    var m_data;
+    var m_preloader;
+    var m_ver;
+    var m_tex;
+    var m_scenes;
+
+    var DEBUG;
+    var APP_ASSETS_PATH;
+
+    b4w.register("TeeShirt_main", function (exports, require) {
+
+
+        m_app = require("app");
+        m_cfg = require("config");
+        m_data = require("data");
+        m_preloader = require("preloader");
+        m_ver = require("version");
+        m_tex = require("textures");
+
+        m_scenes = require("scenes");
+
+        DEBUG = (m_ver.type() == "DEBUG");
+        APP_ASSETS_PATH = m_cfg.get_std_assets_path();
+
+
+        exports.init = function () {
+            m_app.init({
+                canvas_container_id: "main_canvas_container",
+                callback: init_cb,
+                show_fps: true,
+                autoresize: true,
+                assets_dds_available: !DEBUG,
+                assets_min50_available: !DEBUG,
+                console_verbose: true
+            });
+        }
+
+        function init_cb(canvas_elem, success) {
+
+            if (!success) {
+                console.log("b4w init failure");
+                return;
+            }
+            load();
+        }
+
+        function load() {
+
+            var preloader_cont = document.getElementById("preloader_cont");
+            m_data.load("./TeeShirtToExport.json", load_cb);
+        }
+
+        function preloader_cb(percentage) {
+            var prelod_dynamic_path = document.getElementById("prelod_dynamic_path");
+            var percantage_num = prelod_dynamic_path.nextElementSibling;
+
+            prelod_dynamic_path.style.width = percentage + "%";
+            percantage_num.innerHTML = percentage + "%";
+            if (percentage == 100) {
+                var preloader_cont = document.getElementById("preloader_cont");
+                preloader_cont.style.visibility = "hidden";
+                return;
+            }
+        }
+
+        function load_cb(data_id, success) {
+            if (!success) {
+                console.log("b4w load failure");
+                return;
+            }
+            m_app.enable_camera_controls(false, false, false, null, true);
+
+        }
+
+        load_image = function(image) {
+            var shirt = m_scenes.get_object_by_name("T-Shirt");
+            m_tex.replace_image(shirt, "Texture", image);
+        }
+
+        function create_interface(obj) {
+
+        }
+    });
+
+    b4w.require("TeeShirt_main").init();
+</script>

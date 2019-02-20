@@ -8,6 +8,7 @@ b4w.register("TeeShirt_main", function (exports, require) {
     var m_data = require("data");
     var m_preloader = require("preloader");
     var m_ver = require("version");
+    var m_scenes = b4w.scenes
 
     var DEBUG = (m_ver.type() == "DEBUG");
     var APP_ASSETS_PATH = m_cfg.get_std_assets_path();
@@ -63,7 +64,7 @@ b4w.register("TeeShirt_main", function (exports, require) {
     }
 
     function load_data() {
-        var shirt = m_scenes.get_object_by_name("shirt");
+        var shirt = m_scenes.get_object_by_name("T-Shirt");
         var ctx_image = m_tex.get_canvas_ctx(shirt, "tex_canvas");
 
         if (ctx_image) {
@@ -75,6 +76,11 @@ b4w.register("TeeShirt_main", function (exports, require) {
                 m_tex.update_canvas_ctx(shirt, "tex_canvas");
             }
         }
+    }
+
+    function loadImage(image) {
+        var shirt = m_scenes.get_object_by_name("T-Shirt");
+        m_tex.replace_image(shirt, "Texture", image);
     }
 
     function create_interface(obj) {
