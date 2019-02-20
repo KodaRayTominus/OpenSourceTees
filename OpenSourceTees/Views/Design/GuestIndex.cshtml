@@ -1,0 +1,175 @@
+﻿@model IEnumerable<OpenSourceTees.Models.Image>
+
+@{
+    ViewBag.Title = "GuestIndex";
+}
+
+<h2>GuestIndex</h2>
+
+<head>
+    <style type="text/css">
+        #main_canvas_container {
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            top: 60px;
+            left: 10px;
+        }
+
+        .sidenav {
+            height: 100%; /* Full-height: remove this if you want "auto" height */
+            width: 225px; /* Set the width of the sidebar */
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            left: 0;
+            background-color: #111; /* Black */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 20px;
+        }
+    </style>
+
+    <script src="~/Js/b4w.min.js"></script>
+    @*<script type="text/javascript" src="~/Js/TeeShirt.js"></script>*@
+
+</head>
+
+<body>
+    <div class="sidenav">
+        <div id="main_canvas_container"></div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DesignName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="" onclick="load_image(this)">
+
+                    @*<a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DesignName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+
+<script>
+    "use strict"
+
+    var load_image;
+    var m_app;
+    var m_cfg;
+    var m_data;
+    var m_preloader;
+    var m_ver;
+    var m_tex;
+    var m_scenes;
+
+    var DEBUG;
+    var APP_ASSETS_PATH;
+
+    b4w.register("TeeShirt_main", function (exports, require) {
+
+
+        m_app = require("app");
+        m_cfg = require("config");
+        m_data = require("data");
+        m_preloader = require("preloader");
+        m_ver = require("version");
+        m_tex = require("textures");
+
+        m_scenes = require("scenes");
+
+        DEBUG = (m_ver.type() == "DEBUG");
+        APP_ASSETS_PATH = m_cfg.get_std_assets_path();
+
+
+        exports.init = function () {
+            m_app.init({
+                canvas_container_id: "main_canvas_container",
+                callback: init_cb,
+                show_fps: true,
+                autoresize: true,
+                assets_dds_available: !DEBUG,
+                assets_min50_available: !DEBUG,
+                console_verbose: true
+            });
+        }
+
+        function init_cb(canvas_elem, success) {
+
+            if (!success) {
+                console.log("b4w init failure");
+                return;
+            }
+            load();
+        }
+
+        function load() {
+
+            var preloader_cont = document.getElementById("preloader_cont");
+            m_data.load("./TeeShirtToExport.json", load_cb);
+        }
+
+        function preloader_cb(percentage) {
+            var prelod_dynamic_path = document.getElementById("prelod_dynamic_path");
+            var percantage_num = prelod_dynamic_path.nextElementSibling;
+
+            prelod_dynamic_path.style.width = percentage + "%";
+            percantage_num.innerHTML = percentage + "%";
+            if (percentage == 100) {
+                var preloader_cont = document.getElementById("preloader_cont");
+                preloader_cont.style.visibility = "hidden";
+                return;
+            }
+        }
+
+        function load_cb(data_id, success) {
+            if (!success) {
+                console.log("b4w load failure");
+                return;
+            }
+            m_app.enable_camera_controls(false, false, false, null, true);
+
+        }
+
+        load_image = function(image) {
+            var shirt = m_scenes.get_object_by_name("T-Shirt");
+            m_tex.replace_image(shirt, "Texture", image);
+        }
+
+        function create_interface(obj) {
+
+        }
+    });
+
+    b4w.require("TeeShirt_main").init();
+</script>

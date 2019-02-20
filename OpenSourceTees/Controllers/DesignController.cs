@@ -30,6 +30,14 @@ namespace OpenSourceTees.Controllers
             return View(userImages);
         }
 
+        public ActionResult GuestIndex()
+        {
+            string loggedInUserId = User.Identity.GetUserId();
+            List<Image> userImages = (from r in db.Images select r).ToList();
+            ViewBag.PhotoCount = userImages.Count;
+            return View(userImages);
+        }
+
         public ActionResult DeleteImage(string id)
         {
             Image userImage = db.Images.Find(id);
@@ -40,23 +48,32 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file)
+        [HttpGet]
+        public ActionResult UploadImage()
         {
-            if (file != null)
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(TeeShirtUploadViewModel tee)
+        {
+            if (tee.File != null)
             {
                 string ContainerName = "blobs"; //hardcoded container name. 
-                file = file ?? Request.Files["file"];
-                string fileName = Path.GetFileName(file.FileName);
-                Stream imageStream = file.InputStream;
+                tee.File = tee.File ?? Request.Files["file"];
+                string fileName = Path.GetFileName(tee.File.FileName);
+                Stream imageStream = tee.File.InputStream;
                 var result = utility.UploadBlob(fileName, ContainerName, imageStream);
                 if (result != null)
                 {
                     string loggedInUserId = User.Identity.GetUserId();
                     Image userimage = new Image();
                     userimage.Id = new Random().Next().ToString();
-                    userimage.UserId = loggedInUserId;
                     userimage.ImageUrl = result.Uri.ToString();
+                    userimage.UserId = loggedInUserId;
+                    userimage.Description = tee.Image.Description;
+                    userimage.DesignName = tee.Image.DesignName;
+                    userimage.Price = tee.Image.Price;
                     db.Images.Add(userimage);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -70,8 +87,8 @@ namespace OpenSourceTees.Controllers
             {
                 return RedirectToAction("Index");
             }
-
-
         }
+
+
     }
 }
