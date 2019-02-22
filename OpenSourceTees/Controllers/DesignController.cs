@@ -89,6 +89,22 @@ namespace OpenSourceTees.Controllers
             }
         }
 
+        public ActionResult Search(string query)
+        {
+            var SearchList = from m in db.Images
+                             select m;
+            if (!String.IsNullOrEmpty(query))
+            {
+                //SearchList = from s in SearchList
 
+                //               join fts in DB.udf_ImageSearch(query) on s.Id equals fts.Id
+
+                //               select s;
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(SearchList);
+
+            return View(SearchList);
+        }
     }
 }
