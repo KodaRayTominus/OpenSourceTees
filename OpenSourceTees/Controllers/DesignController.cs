@@ -91,15 +91,17 @@ namespace OpenSourceTees.Controllers
 
         public ActionResult Search(string query)
         {
+
+            db = new ApplicationDbContext();
             var SearchList = from m in db.Images
                              select m;
             if (!String.IsNullOrEmpty(query))
             {
-                //SearchList = from s in SearchList
+                SearchList = from s in SearchList
 
-                //               join fts in DB.udf_ImageSearch(query) on s.Id equals fts.Id
+                             join fts in db.udf_imageSearch(query) on s.Id equals fts.Id
 
-                //               select s;
+                             select s;
             }
             if (Request.IsAjaxRequest())
                 return PartialView(SearchList);

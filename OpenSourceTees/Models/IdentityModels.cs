@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -33,6 +35,12 @@ namespace OpenSourceTees.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        [DbFunction("aspnet-OpenSourceTees-20190119062050Model.Store", "udf_imageSearch")]
+        public IQueryable<Image> udf_imageSearch(string query)
+        {
+            throw new NotImplementedException();
         }
 
         public DbSet<Image> Images { get; set; }
