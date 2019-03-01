@@ -7,13 +7,13 @@ namespace OpenSourceTees.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class tags : IMigrationMetadata
+    public sealed partial class tagsearch : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tags));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tagsearch));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902220640369_tags"; }
+            get { return "201902280740553_tagsearch"; }
         }
         
         string IMigrationMetadata.Source

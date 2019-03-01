@@ -89,7 +89,7 @@ namespace OpenSourceTees.Controllers
             }
         }
 
-        public ActionResult Search(string query)
+        public ActionResult Search(string query, int? skipN, int? takeN)
         {
 
             db = new ApplicationDbContext();
@@ -99,7 +99,7 @@ namespace OpenSourceTees.Controllers
             {
                 SearchList = from s in SearchList
 
-                             join fts in db.udf_imageSearch(query) on s.Id equals fts.Id
+                             join fts in db.udf_imageSearch(query, skipN, takeN) on s.Id equals fts.Id
 
                              select s;
             }

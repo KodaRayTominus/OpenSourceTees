@@ -212,9 +212,9 @@
     <Compile Include="Migrations\201901200455211_BlobStorage1.3.Designer.cs">
       <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902220640369_tags.cs" />
-    <Compile Include="Migrations\201902220640369_tags.Designer.cs">
-      <DependentUpon>201902220640369_tags.cs</DependentUpon>
+    <Compile Include="Migrations\201902280740553_tagsearch.cs" />
+    <Compile Include="Migrations\201902280740553_tagsearch.Designer.cs">
+      <DependentUpon>201902280740553_tagsearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -453,8 +453,8 @@
     <EmbeddedResource Include="Migrations\201901200455211_BlobStorage1.3.resx">
       <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220640369_tags.resx">
-      <DependentUpon>201902220640369_tags.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280740553_tagsearch.resx">
+      <DependentUpon>201902280740553_tagsearch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

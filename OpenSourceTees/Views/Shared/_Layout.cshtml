@@ -26,7 +26,7 @@
                 <div class="col-sm-3 col-md-3">
                     <form class="navbar-form" role="search" action="/Design/Search" method="get">
                         <div class="input-group">
-                            <input type="text" id="Search" class="form-control" placeholder="Search" name="Search">
+                            <input type="text" id="search" class="form-control" placeholder="Search" name="Search">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
@@ -51,17 +51,36 @@
 
     <script>
         $(function () {
-
-            $("#Search").keyup(function (e) {
-                var query = $("#Search").val();
-                $.get("/Design/Search?" + query, function (r) {
+            alert("hit step 1");
+            $("#search").keyup(function (e) {
+                alert("hit inside keyup");
+                var query = $("#search").val();
+                var takeN = GetURLParameter("takeN");
+                if (takeN == 0 || takeN == null) {
+                    takeN = 10;
+                }
+                var skipN = GetURLParameter("skipN") + takeN;
+                if (skipN == null || skipN == 10) {
+                    skipN = 0;
+                }
+                $.get("/Design/Search?query=" + query + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
                     //update ui with results
                     $("#resultsTable").html(r);
                 });
 
             });
 
-        });
+        })
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return parseInt(sParameterName[1]);
+                }
+            }
+        }​
     </script>
 </body>
 </html>

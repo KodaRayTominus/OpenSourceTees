@@ -38,7 +38,7 @@ namespace OpenSourceTees.Models
         }
 
         [DbFunction("aspnet-OpenSourceTees-20190119062050Model.Store", "udf_imageSearch")]
-        public IQueryable<Image> udf_imageSearch(string query)
+        public IQueryable<Image> udf_imageSearch(string query, int? skipN, int? takeN)
         {
             throw new NotImplementedException();
         }
