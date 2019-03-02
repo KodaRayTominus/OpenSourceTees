@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -41,6 +43,7 @@ namespace OpenSourceTees.Models
         }
 
         public DbSet<Image> Images { get; set; }
+        public DbSet<KeyRank> KeyRanks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -115,28 +118,27 @@ namespace OpenSourceTees.Models
                 });
             }).HasKey(c => c.Id);
 
-
             modelBuilder.Conventions.Add(new FunctionsConvention<ApplicationDbContext>("dbo"));
         }
 
-        //[DbFunction(nameof(ApplicationDbContext), nameof(udf_imageSearch))]
-        //public IQueryable<KeyRank> udf_imageSearch(string keywords, int? skipN, int? takeN)
-        //{
-        //    //throw new NotSupportedException();
-        //    var querykeywordsParameter = keywords != null ?
-        //                                      new ObjectParameter("keywords", keywords) :
-        //                                      new ObjectParameter("keywords", typeof(string));
-        //    var queryskipNParameter = skipN != null ?
-        //                                      new ObjectParameter("SkipN", skipN) :
-        //                                      new ObjectParameter("SkipN", typeof(int?));
-        //    var querytakeNParameter = takeN != null ?
-        //                                      new ObjectParameter("TakeN", takeN) :
-        //                                      new ObjectParameter("TakeN", typeof(int?));
+        [DbFunction(nameof(ApplicationDbContext), nameof(udf_imageSearch))]
+        public IQueryable<KeyRank> udf_imageSearch(string keywords, int? skipN, int? takeN)
+        {
+            //throw new NotSupportedException();
+            var querykeywordsParameter = keywords != null ?
+                                              new ObjectParameter("keywords", keywords) :
+                                              new ObjectParameter("keywords", typeof(string));
+            var queryskipNParameter = skipN != null ?
+                                              new ObjectParameter("SkipN", skipN) :
+                                              new ObjectParameter("SkipN", typeof(int?));
+            var querytakeNParameter = takeN != null ?
+                                              new ObjectParameter("TakeN", takeN) :
+                                              new ObjectParameter("TakeN", typeof(int?));
 
-        //    return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<KeyRank>(
-        //      $"[{nameof(ApplicationDbContext)}].[udf_imageSearch](@keywords, @SkipN, @TakeN)",
-        //      new ObjectParameter[] { querykeywordsParameter, queryskipNParameter, querytakeNParameter });
-        //}
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<KeyRank>(
+              $"[{nameof(ApplicationDbContext)}].[udf_imageSearch](@keywords, @SkipN, @TakeN)",
+              new ObjectParameter[] { querykeywordsParameter, queryskipNParameter, querytakeNParameter });
+        }
 
         public static ApplicationDbContext Create()
         {

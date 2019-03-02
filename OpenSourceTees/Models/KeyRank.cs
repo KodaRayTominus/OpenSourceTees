@@ -7,9 +7,12 @@ using System.Web;
 
 namespace OpenSourceTees.Models
 {
-    [ComplexType]
     public class KeyRank
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int KeyRankKey { get; set; }
+
         public virtual string Id { get; set; }
 
         public virtual int Rank { get; set; }
