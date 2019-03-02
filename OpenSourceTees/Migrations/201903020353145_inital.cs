@@ -3,7 +3,7 @@ namespace OpenSourceTees.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class inital : DbMigration
     {
         public override void Up()
         {
@@ -27,8 +27,9 @@ namespace OpenSourceTees.Migrations
                 "dbo.AspNetUsers",
                 c => new
                     {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        Email = c.String(),
+                        Id = c.String(nullable: false, maxLength: 128),
+                        UserRole = c.String(),
+                        Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
@@ -38,21 +39,22 @@ namespace OpenSourceTees.Migrations
                         LockoutEndDateUtc = c.DateTime(),
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
-                        UserName = c.String(),
+                        UserName = c.String(nullable: false, maxLength: 256),
                     })
-                .PrimaryKey(t => t.UserId);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
                     {
-                        UserClaimId = c.Int(nullable: false, identity: true),
-                        UserId = c.String(maxLength: 128),
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
                         ClaimType = c.String(),
                         ClaimValue = c.String(),
                     })
-                .PrimaryKey(t => t.UserClaimId)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -81,22 +83,24 @@ namespace OpenSourceTees.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.KeyRanks",
+                c => new
+                    {
+                        KeyRankKey = c.Int(nullable: false, identity: true),
+                        Id = c.String(),
+                        Rank = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.KeyRankKey);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.ApplicationUser1",
-                c => new
-                    {
                         Id = c.String(nullable: false, maxLength: 128),
-                        UserRole = c.String(),
+                        Name = c.String(nullable: false, maxLength: 256),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
         }
         
@@ -107,13 +111,15 @@ namespace OpenSourceTees.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Images", new[] { "ApplicationUser_Id" });
-            DropTable("dbo.ApplicationUser1");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.KeyRanks");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
