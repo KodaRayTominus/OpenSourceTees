@@ -191,36 +191,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901200234547_InitialCreate.cs" />
-    <Compile Include="Migrations\201901200234547_InitialCreate.Designer.cs">
-      <DependentUpon>201901200234547_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201903020245353_tagsearch.cs" />
+    <Compile Include="Migrations\201903020245353_tagsearch.Designer.cs">
+      <DependentUpon>201903020245353_tagsearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901200235531_initial.cs" />
-    <Compile Include="Migrations\201901200235531_initial.Designer.cs">
-      <DependentUpon>201901200235531_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200336167_BlobStorage.cs" />
-    <Compile Include="Migrations\201901200336167_BlobStorage.Designer.cs">
-      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200350401_BlobStorage1.1.cs" />
-    <Compile Include="Migrations\201901200350401_BlobStorage1.1.Designer.cs">
-      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200438469_BlobStorage1.2.cs" />
-    <Compile Include="Migrations\201901200438469_BlobStorage1.2.Designer.cs">
-      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200455211_BlobStorage1.3.cs" />
-    <Compile Include="Migrations\201901200455211_BlobStorage1.3.Designer.cs">
-      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902280740553_tagsearch.cs" />
-    <Compile Include="Migrations\201902280740553_tagsearch.Designer.cs">
-      <DependentUpon>201902280740553_tagsearch.cs</DependentUpon>
+    <Compile Include="Migrations\201903020245352_initial.cs" />
+    <Compile Include="Migrations\201903020245352_initial.Designer.cs">
+      <DependentUpon>201903020245352_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
+    <Compile Include="Models\ApplicationUserClaim.cs" />
+    <Compile Include="Models\ApplicationUserLogin.cs" />
+    <Compile Include="Models\ApplicationUserRole.cs" />
+    <Compile Include="Models\ApplicationUserStore.cs" />
     <Compile Include="Models\BlobUtility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
@@ -440,26 +425,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901200234547_InitialCreate.resx">
-      <DependentUpon>201901200234547_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020245353_tagsearch.resx">
+      <DependentUpon>201903020245353_tagsearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200235531_initial.resx">
-      <DependentUpon>201901200235531_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200336167_BlobStorage.resx">
-      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200350401_BlobStorage1.1.resx">
-      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200438469_BlobStorage1.2.resx">
-      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200455211_BlobStorage1.3.resx">
-      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280740553_tagsearch.resx">
-      <DependentUpon>201902280740553_tagsearch.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020245352_initial.resx">
+      <DependentUpon>201903020245352_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
