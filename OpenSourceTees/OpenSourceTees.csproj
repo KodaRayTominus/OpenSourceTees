@@ -191,9 +191,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020353146_tagsearch.cs" />
-    <Compile Include="Migrations\201903020353146_tagsearch.Designer.cs">
-      <DependentUpon>201903020353146_tagsearch.cs</DependentUpon>
+    <Compile Include="Migrations\201903020402581_tagsearch.cs" />
+    <Compile Include="Migrations\201903020402581_tagsearch.Designer.cs">
+      <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201903020402580_initial.cs" />
     <Compile Include="Migrations\201903020402580_initial.Designer.cs">
@@ -425,8 +425,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903020353146_tagsearch.resx">
-      <DependentUpon>201903020353146_tagsearch.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020402581_tagsearch.resx">
+      <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903020402580_initial.resx">
       <DependentUpon>201903020402580_initial.cs</DependentUpon>
