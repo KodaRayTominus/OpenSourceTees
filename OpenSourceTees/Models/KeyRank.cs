@@ -11,8 +11,6 @@ namespace OpenSourceTees.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int KeyRankKey { get; set; }
-
         public virtual string Id { get; set; }
 
         public virtual int Ranking { get; set; }

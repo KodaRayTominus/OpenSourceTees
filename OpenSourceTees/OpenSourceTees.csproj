@@ -191,9 +191,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020402581_tagsearch.cs" />
-    <Compile Include="Migrations\201903020402581_tagsearch.Designer.cs">
-      <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
+    <Compile Include="Migrations\201903020430374_tagsearch.cs" />
+    <Compile Include="Migrations\201903020430374_tagsearch.Designer.cs">
+      <DependentUpon>201903020430374_tagsearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903020430373_initial.cs" />
+    <Compile Include="Migrations\201903020430373_initial.Designer.cs">
+      <DependentUpon>201903020430373_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -416,8 +420,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903020402581_tagsearch.resx">
-      <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020430374_tagsearch.resx">
+      <DependentUpon>201903020430374_tagsearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903020430373_initial.resx">
+      <DependentUpon>201903020430373_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -58,7 +58,7 @@
                     takeN = 10;
                 }
                 var skipN = GetURLParameter("skipN") + takeN;
-                if (skipN == null || skipN == 10) {
+                if (skipN == null || skipN == 10 || isNaN(skipN)) {
                     skipN = 0;
                 }
                 $.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
