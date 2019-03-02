@@ -87,7 +87,7 @@ namespace OpenSourceTees.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Ranking = c.Int(nullable: false),
+                        Ranking = c.Int(),
                     })
                 .PrimaryKey(t => t.Id);
             

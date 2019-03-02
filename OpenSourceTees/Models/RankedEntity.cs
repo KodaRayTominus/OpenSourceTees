@@ -9,6 +9,6 @@ namespace OpenSourceTees.Models
     {
         public E Entity { get; set; }
 
-        public int Rank { get; set; }
+        public int? Rank { get; set; }
     }
 }

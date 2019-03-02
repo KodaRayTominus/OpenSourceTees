@@ -13,6 +13,6 @@ namespace OpenSourceTees.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual string Id { get; set; }
 
-        public virtual int Ranking { get; set; }
+        public virtual int? Ranking { get; set; }
     }
 }

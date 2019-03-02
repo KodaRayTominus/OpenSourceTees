@@ -113,8 +113,7 @@ namespace OpenSourceTees.Controllers
             }
             var SearchList = from s in db.Images
 
-                             join fts in db.udf_imageSearch(keywords, SkipN, TakeN) on s.Id equals fts.Id into ps
-                             from fts in ps.DefaultIfEmpty()
+                             join fts in db.udf_imageSearch(keywords, SkipN, TakeN) on s.Id equals fts.Id 
 
                              select new RankedEntity<Image>
                              {
@@ -126,9 +125,9 @@ namespace OpenSourceTees.Controllers
                 var list = SearchList;
             }
             if (Request.IsAjaxRequest())
-                return PartialView(SearchList);
+                return PartialView(SearchList.ToList());
 
-            return View(/*SearchList*/);
+            return View(SearchList.ToList());
         }
     }
 }
