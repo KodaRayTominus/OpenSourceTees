@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OpenSourceTees.Models.Image>
+﻿@model IEnumerable<OpenSourceTees.Models.RankedEntity<OpenSourceTees.Models.Image>>
 @{
     ViewBag.Title = "Search";
 }
@@ -6,38 +6,38 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.Entity.ImageUrl)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DesignName)
+            @Html.DisplayNameFor(model => model.Entity.DesignName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Entity.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Entity.Price)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in model)
     {
         <tr>
             <td>
-                <img class="img-responsive" src="@item.ImageUrl" style="height: 128px;width:128px;" alt="" onclick="load_image(this)">
+                <img class="img-responsive" src="@item.Entity.ImageUrl" style="height: 128px;width:128px;" alt="" onclick="load_image(this)">
 
                 @*<a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DesignName)
+                @Html.DisplayFor(modelItem => item.Entity.DesignName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Entity.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Entity.Price)
             </td>
         </tr>
     }
