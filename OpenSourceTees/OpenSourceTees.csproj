@@ -195,10 +195,6 @@
     <Compile Include="Migrations\201903020402581_tagsearch.Designer.cs">
       <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020402580_initial.cs" />
-    <Compile Include="Migrations\201903020402580_initial.Designer.cs">
-      <DependentUpon>201903020402580_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
@@ -422,9 +418,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903020402581_tagsearch.resx">
       <DependentUpon>201903020402581_tagsearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903020402580_initial.resx">
-      <DependentUpon>201903020402580_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

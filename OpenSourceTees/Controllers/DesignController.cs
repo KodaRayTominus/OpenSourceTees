@@ -91,7 +91,7 @@ namespace OpenSourceTees.Controllers
 
         public ActionResult Search(string keywords, int? SkipN, int? TakeN)
         {
-            //Console.WriteLine(db.udf_imageSearch(keywords, SkipN, TakeN).ToList().ToString());
+            Console.WriteLine(db.udf_imageSearch(keywords, SkipN, TakeN).ToList().ToString());
 
             db = new ApplicationDbContext();
             //var SearchList = from m in db.udf_imageSearch(keywords, SkipN, TakeN)

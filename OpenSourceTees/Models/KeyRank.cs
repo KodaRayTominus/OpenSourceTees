@@ -15,6 +15,6 @@ namespace OpenSourceTees.Models
 
         public virtual string Id { get; set; }
 
-        public virtual int Rank { get; set; }
+        public virtual int Ranking { get; set; }
     }
 }
