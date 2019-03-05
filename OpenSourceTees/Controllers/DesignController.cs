@@ -80,16 +80,16 @@ namespace OpenSourceTees.Controllers
                     userimage.Price = tee.Image.Price;
                     db.Images.Add(userimage);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -160,15 +160,15 @@ namespace OpenSourceTees.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditImage([Bind(Include = "Id,ImageUrl,UserId,DesignName,Description,Price")] Image image)
         {
-            if (ModelState.IsValid && Request.IsAjaxRequest())
+            if (ModelState.IsValid)
             {
                 db.Entry(image).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Design");
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Index", "Home");
+            return View(image);
         }
 
         // GET: Images/Details/5
