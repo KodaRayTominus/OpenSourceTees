@@ -10,7 +10,6 @@ namespace OpenSourceTees.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OpenSourceTees.Models.ApplicationDbContext";
         }
 
         protected override void Seed(OpenSourceTees.Models.ApplicationDbContext context)

@@ -89,6 +89,45 @@ namespace OpenSourceTees.Controllers
             }
         }
 
+        public ActionResult Search(string keywords, int? SkipN, int? TakeN)
+        {
+            //Console.WriteLine(db.udf_imageSearch(keywords, SkipN, TakeN).ToList());
 
+            db = new ApplicationDbContext();
+            //var SearchList = from m in db.udf_imageSearch(keywords, SkipN, TakeN)
+            //                 select m;
+            //var SearchList = from m in db.Images
+            //                 select m;
+            if (TakeN == 0 || TakeN == null)
+            {
+                TakeN = 10;
+            }
+            if (SkipN == null || SkipN == 10)
+            {
+                SkipN = 0;
+            }
+            if (String.IsNullOrEmpty(keywords))
+            {
+                return View(from s in db.Images
+                            select new RankedEntity<Image> { Entity = s, Rank = 1 });
+            }
+            var SearchList = from s in db.Images
+
+                             join fts in db.udf_imageSearch(keywords, SkipN, TakeN) on s.Id equals fts.Id 
+
+                             select new RankedEntity<Image>
+                             {
+                                 Entity = s,
+                                 Rank = fts.Ranking
+                             };
+            if(keywords.Length > 3)
+            {
+                var list = SearchList;
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(SearchList.ToList());
+
+            return View(SearchList.ToList());
+        }
     }
 }

@@ -7,13 +7,13 @@ namespace OpenSourceTees.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class BlobStorage : IMigrationMetadata
+    public sealed partial class tagsearch : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BlobStorage));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tagsearch));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901200336167_BlobStorage"; }
+            get { return "201902280740553_tagsearch"; }
         }
         
         string IMigrationMetadata.Source

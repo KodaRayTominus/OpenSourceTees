@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CodeFirstStoreFunctions, Version=1.1.3.0, Culture=neutral, PublicKeyToken=46c4868af4307d2c, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.CodeFirstStoreFunctions.1.1.3\lib\net45\CodeFirstStoreFunctions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
@@ -188,36 +191,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901200234547_InitialCreate.cs" />
-    <Compile Include="Migrations\201901200234547_InitialCreate.Designer.cs">
-      <DependentUpon>201901200234547_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201903020819214_tagsearch.cs" />
+    <Compile Include="Migrations\201903020819214_tagsearch.Designer.cs">
+      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901200235531_initial.cs" />
-    <Compile Include="Migrations\201901200235531_initial.Designer.cs">
-      <DependentUpon>201901200235531_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200336167_BlobStorage.cs" />
-    <Compile Include="Migrations\201901200336167_BlobStorage.Designer.cs">
-      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200350401_BlobStorage1.1.cs" />
-    <Compile Include="Migrations\201901200350401_BlobStorage1.1.Designer.cs">
-      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200438469_BlobStorage1.2.cs" />
-    <Compile Include="Migrations\201901200438469_BlobStorage1.2.Designer.cs">
-      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901200455211_BlobStorage1.3.cs" />
-    <Compile Include="Migrations\201901200455211_BlobStorage1.3.Designer.cs">
-      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
+    <Compile Include="Migrations\201903020819211_initial.cs" />
+    <Compile Include="Migrations\201903020819211_initial.Designer.cs">
+      <DependentUpon>201903020819211_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\KeyRank.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RankedEntity.cs" />
     <Compile Include="Models\TeeShirtUploadViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -420,6 +409,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Design\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -430,23 +420,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901200234547_InitialCreate.resx">
-      <DependentUpon>201901200234547_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020819214_tagsearch.resx">
+      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200235531_initial.resx">
-      <DependentUpon>201901200235531_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200336167_BlobStorage.resx">
-      <DependentUpon>201901200336167_BlobStorage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200350401_BlobStorage1.1.resx">
-      <DependentUpon>201901200350401_BlobStorage1.1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200438469_BlobStorage1.2.resx">
-      <DependentUpon>201901200438469_BlobStorage1.2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901200455211_BlobStorage1.3.resx">
-      <DependentUpon>201901200455211_BlobStorage1.3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903020819211_initial.resx">
+      <DependentUpon>201903020819211_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
