@@ -2,8 +2,10 @@
 using OpenSourceTees.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,25 +35,18 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult GuestIndex()
-        {
-            string loggedInUserId = User.Identity.GetUserId();
-            List<Image> userImages = (from r in db.Images select r).ToList();
-            ViewBag.PhotoCount = userImages.Count;
-            if (Request.IsAjaxRequest())
-                return PartialView(userImages);
-
-            return RedirectToAction("Index", "Home");
-        }
-
         public ActionResult DeleteImage(string id)
         {
-            Image userImage = db.Images.Find(id);
-            db.Images.Remove(userImage);
-            db.SaveChanges();
-            string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
-            utility.DeleteBlob(BlobNameToDelete, "blobs");
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest()){
+                Image userImage = db.Images.Find(id);
+                db.Images.Remove(userImage);
+                db.SaveChanges();
+                string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
+                utility.DeleteBlob(BlobNameToDelete, "blobs");
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpGet]
@@ -135,6 +130,61 @@ namespace OpenSourceTees.Controllers
             }
             if (Request.IsAjaxRequest())
                 return PartialView(SearchList.ToList());
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult EditImage(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Image image = db.Images.Find(id);
+            if (image == null)
+            {
+                return HttpNotFound();
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(image);
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Images/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditImage([Bind(Include = "Id,ImageUrl,UserId,DesignName,Description,Price")] Image image)
+        {
+            if (ModelState.IsValid && Request.IsAjaxRequest())
+            {
+                db.Entry(image).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Design");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // GET: Images/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Image image = db.Images.Find(id);
+            if (image == null)
+            {
+                return HttpNotFound();
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(image);
 
 
             return RedirectToAction("Index", "Home");
