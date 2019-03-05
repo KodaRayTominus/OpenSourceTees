@@ -17,7 +17,7 @@ namespace OpenSourceTees.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return PartialView();
         }
 
         public ActionResult Contact()
@@ -25,6 +25,11 @@ namespace OpenSourceTees.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Home()
+        {
+            return PartialView();
         }
     }
 }

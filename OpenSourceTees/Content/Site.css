@@ -34,3 +34,7 @@ textarea {
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
+
+.nav-button {
+    pointer-events: none;
+}
