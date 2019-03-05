@@ -24,7 +24,7 @@ namespace OpenSourceTees.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            return PartialView();
         }
 
         public ActionResult Home()
