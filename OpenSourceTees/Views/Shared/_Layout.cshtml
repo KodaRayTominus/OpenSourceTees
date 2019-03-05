@@ -11,17 +11,16 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <a href="" class="navbar-brand nav-button">Application name</a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item active">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item active">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item active" onclick="ChangePage('Home','Home')"><a href="" class="nav-link nav-button">Home</a></li>
+                    <li class="nav-item active" onclick="ChangePage('Home','About')"><a href="" class="nav-link nav-button">About</a></li>
+                    <li class="nav-item active" onclick="ChangePage('Home','Contact')"><a href="" class="nav-link nav-button">Contact</a></li>
                 </ul>
                 <div class="col-sm-3 col-md-3">
                     <form class="navbar-form" role="search" action="/Design/Search" method="get">
@@ -51,6 +50,14 @@
 
     <script>
         $(function () {
+            var val = $("#MainContainer").val();
+            if (val == "") {
+                $.get("/Home/Home", function (r) {
+                    //update ui with results
+                    $("#MainContainer").html(r);
+                })
+            }
+
             $("#search").keyup(function (e) {
                 var keywords = $("#search").val();
                 var takeN = GetURLParameter("takeN");
@@ -63,7 +70,7 @@
                 }
                 $.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
                     //update ui with results
-                    $("#resultsTable").html(r);
+                    $("#MainContainer").html(r);
                 });
 
             });
@@ -78,6 +85,14 @@
                     return parseInt(sParameterName[1]);
                 }
             }
+        }
+
+        function ChangePage(controller, view) {
+            //$.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
+            $.get("/" + controller + "/" + view, function (r) {
+                //update ui with results
+                $("#MainContainer").html(r);
+            });
         }
     </script>
 </body>
