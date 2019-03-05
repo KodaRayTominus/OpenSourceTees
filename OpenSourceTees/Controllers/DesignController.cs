@@ -27,7 +27,10 @@ namespace OpenSourceTees.Controllers
             string loggedInUserId = User.Identity.GetUserId();
             List<Image> userImages = (from r in db.Images where r.UserId == loggedInUserId select r).ToList();
             ViewBag.PhotoCount = userImages.Count;
-            return View(userImages);
+            if (Request.IsAjaxRequest())
+                return PartialView(userImages);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult GuestIndex()
@@ -35,7 +38,10 @@ namespace OpenSourceTees.Controllers
             string loggedInUserId = User.Identity.GetUserId();
             List<Image> userImages = (from r in db.Images select r).ToList();
             ViewBag.PhotoCount = userImages.Count;
-            return View(userImages);
+            if (Request.IsAjaxRequest())
+                return PartialView(userImages);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult DeleteImage(string id)
@@ -51,7 +57,10 @@ namespace OpenSourceTees.Controllers
         [HttpGet]
         public ActionResult UploadImage()
         {
-            return View();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -106,9 +115,9 @@ namespace OpenSourceTees.Controllers
             {
                 SkipN = 0;
             }
-            if (String.IsNullOrEmpty(keywords))
+            if (String.IsNullOrEmpty(keywords) && Request.IsAjaxRequest())
             {
-                return View(from s in db.Images
+                return PartialView(from s in db.Images
                             select new RankedEntity<Image> { Entity = s, Rank = 1 });
             }
             var SearchList = from s in db.Images
@@ -127,7 +136,8 @@ namespace OpenSourceTees.Controllers
             if (Request.IsAjaxRequest())
                 return PartialView(SearchList.ToList());
 
-            return View(SearchList.ToList());
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
