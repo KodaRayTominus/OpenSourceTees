@@ -17,19 +17,28 @@ namespace OpenSourceTees.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home"); ;
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Home()
         {
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

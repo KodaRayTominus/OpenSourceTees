@@ -57,8 +57,10 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -139,7 +141,10 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
