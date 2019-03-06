@@ -120,22 +120,14 @@
             }
         }
 
-        //function formSubmit() {
-        //    $.validator.unobtrusive.parse($("form"));
-        //    $("form").validate();
-        //    if ($("form").valid()) {
-        //        alert('valid');
-        //        return true;
-        //    }
-        //    else {
-        //        // Failed show errors
-        //        $.each($form.validate().errorList, function (key, value) {
-        //            $errorSpan = $("span[data-valmsg-for='" + value.element.id + "']");
-        //            $errorSpan.html("<span style='color:red'>" + value.message + "</span>");
-        //            $errorSpan.show();
-        //        });
-        //    }
-        //}
+        function OnSuccess(result) {
+            if (result.success == true) {
+                $.get("/Home/Home", function (r) {
+                    //update ui with results
+                    $("#MainContainer").html(r);
+                })
+            }
+        }
 
         function ChangePage(controller, view, data) {
             if (data != undefined) {

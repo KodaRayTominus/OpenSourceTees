@@ -61,36 +61,42 @@ namespace OpenSourceTees.Controllers
         [HttpPost]
         public ActionResult UploadImage(TeeShirtUploadViewModel tee)
         {
-            if (tee.File != null)
+            if (Request.IsAjaxRequest())
             {
-                string ContainerName = "blobs"; //hardcoded container name. 
-                tee.File = tee.File ?? Request.Files["file"];
-                string fileName = Path.GetFileName(tee.File.FileName);
-                Stream imageStream = tee.File.InputStream;
-                var result = utility.UploadBlob(fileName, ContainerName, imageStream);
-                if (result != null)
+                
+                if (tee.File != null && ModelState.IsValid)
                 {
-                    string loggedInUserId = User.Identity.GetUserId();
-                    Image userimage = new Image();
-                    userimage.Id = new Random().Next().ToString();
-                    userimage.ImageUrl = result.Uri.ToString();
-                    userimage.UserId = loggedInUserId;
-                    userimage.Description = tee.Image.Description;
-                    userimage.DesignName = tee.Image.DesignName;
-                    userimage.Price = tee.Image.Price;
-                    db.Images.Add(userimage);
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    string ContainerName = "blobs"; //hardcoded container name. 
+                    tee.File = tee.File ?? Request.Files["file"];
+                    string fileName = Path.GetFileName(tee.File.FileName);
+                    Stream imageStream = tee.File.InputStream;
+                    var result = utility.UploadBlob(fileName, ContainerName, imageStream);
+                    if (result != null)
+                    {
+                        string loggedInUserId = User.Identity.GetUserId();
+                        Image userimage = new Image();
+                        userimage.Id = new Random().Next().ToString();
+                        userimage.ImageUrl = result.Uri.ToString();
+                        userimage.UserId = loggedInUserId;
+                        userimage.Description = tee.Image.Description;
+                        userimage.DesignName = tee.Image.DesignName;
+                        userimage.Price = tee.Image.Price;
+                        db.Images.Add(userimage);
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return PartialView(tee);
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return PartialView(tee);
                 }
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         public ActionResult Search(string keywords, int? SkipN, int? TakeN)
