@@ -77,6 +77,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
@@ -118,6 +119,23 @@
                 }
             }
         }
+
+        //function formSubmit() {
+        //    $.validator.unobtrusive.parse($("form"));
+        //    $("form").validate();
+        //    if ($("form").valid()) {
+        //        alert('valid');
+        //        return true;
+        //    }
+        //    else {
+        //        // Failed show errors
+        //        $.each($form.validate().errorList, function (key, value) {
+        //            $errorSpan = $("span[data-valmsg-for='" + value.element.id + "']");
+        //            $errorSpan.html("<span style='color:red'>" + value.message + "</span>");
+        //            $errorSpan.show();
+        //        });
+        //    }
+        //}
 
         function ChangePage(controller, view, data) {
             if (data != undefined) {

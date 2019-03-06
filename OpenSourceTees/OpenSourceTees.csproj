@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201903020819211_initial.Designer.cs">
       <DependentUpon>201903020819211_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903060556000_updatedImage.cs" />
+    <Compile Include="Migrations\201903060556000_updatedImage.Designer.cs">
+      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
@@ -233,6 +237,8 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -427,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903020819211_initial.resx">
       <DependentUpon>201903020819211_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903060556000_updatedImage.resx">
+      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
