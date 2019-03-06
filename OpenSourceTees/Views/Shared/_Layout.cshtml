@@ -214,9 +214,13 @@
 
             }
 
-            load_image = function (image) {
+            load_image = function (imageURL) {
+                var my_image = new Image();
                 var shirt = m_scenes.get_object_by_name("T-Shirt");
-                m_tex.replace_image(shirt, "Texture", image);
+                my_image.src = imageURL;
+                my_image.onload = function () {
+                    m_tex.replace_image(shirt, "Texture", my_image);
+                }
             }
 
             function create_interface(obj) {

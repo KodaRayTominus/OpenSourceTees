@@ -3,6 +3,11 @@
     <div class="col-lg-12">
 
         <div class="alert alert-warning">You have @ViewBag.PhotoCount Photos </div>
+        <ul>
+            <li class="btn btn-dark btn-secondary" onclick="ChangePage('Design','UploadImage')">
+                Upload Image
+            </li>
+        </ul>
     </div>
     @foreach (var item in Model)
     {
