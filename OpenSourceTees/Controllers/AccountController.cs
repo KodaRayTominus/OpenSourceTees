@@ -84,7 +84,7 @@ namespace OpenSourceTees.Controllers
                 {
                     case SignInStatus.Success:
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Home");
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
@@ -95,7 +95,7 @@ namespace OpenSourceTees.Controllers
                         return View(model);
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
 
         }
 
@@ -176,7 +176,7 @@ namespace OpenSourceTees.Controllers
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                         await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Home");
                     }
                     AddErrors(result);
                 }
@@ -185,7 +185,7 @@ namespace OpenSourceTees.Controllers
                 return PartialView(model);
             }
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         //

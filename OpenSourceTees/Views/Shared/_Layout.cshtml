@@ -61,7 +61,9 @@
                         </div>
                     </form>
                 </div>
-                @Html.Partial("_LoginPartial")
+                <div id="loginPartial">
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </nav>
@@ -120,14 +122,12 @@
             }
         }
 
-        function OnSuccess(result) {
-            if (result.success == true) {
-                $.get("/Home/Home", function (r) {
-                    //update ui with results
-                    $("#MainContainer").html(r);
-                })
-            }
-        }
+        @*function OnSuccess(result) {
+            //$.get("/Shared/_loginPartial", function (r) {
+                //update ui with results
+            $("#loginPartial").html("@Html.Partial("_LoginPartial").ToString()");
+            //})
+        }*@
 
         function ChangePage(controller, view, data) {
             if (data != undefined) {

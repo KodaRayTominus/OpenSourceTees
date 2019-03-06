@@ -9,7 +9,7 @@
     <div class="col-md-8">
         <section id="loginForm">
             @using (Ajax.BeginForm("Login", "Account", null ,new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", UpdateTargetId = "MainContainer" },
-                    new { id = "Logonform", returnUrl = ViewBag.ReturnUrl }))
+                    new { id = "loginForm", returnUrl = ViewBag.ReturnUrl }))
             {
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
@@ -58,7 +58,3 @@
         </section>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
