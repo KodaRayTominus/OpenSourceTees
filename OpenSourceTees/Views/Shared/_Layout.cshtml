@@ -122,12 +122,12 @@
             }
         }
 
-        @*function OnSuccess(result) {
-            //$.get("/Shared/_loginPartial", function (r) {
+        function OnSuccess(result) {
+            $.get("/Shared/_LoginPartial", function (r) {
                 //update ui with results
-            $("#loginPartial").html("@Html.Partial("_LoginPartial").ToString()");
-            //})
-        }*@
+                $("#loginPartial").html(r);
+            })
+        }
 
         function ChangePage(controller, view, data) {
             if (data != undefined) {

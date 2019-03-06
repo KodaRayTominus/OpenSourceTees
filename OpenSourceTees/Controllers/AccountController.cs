@@ -83,7 +83,6 @@ namespace OpenSourceTees.Controllers
                 switch (result)
                 {
                     case SignInStatus.Success:
-
                         return RedirectToAction("Home", "Home");
                     case SignInStatus.LockedOut:
                         return View("Lockout");
