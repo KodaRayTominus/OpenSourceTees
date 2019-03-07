@@ -31,7 +31,7 @@ namespace OpenSourceTees
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
             myMessage.From = new System.Net.Mail.MailAddress(
-                                "Joe@contoso.com", "Joe S.");
+                                "tominus5990@student.cptc.edu", "Koda T");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
