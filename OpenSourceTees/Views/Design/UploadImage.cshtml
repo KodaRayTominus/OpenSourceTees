@@ -6,7 +6,7 @@
 
 <h2>UploadImage</h2>
 
-@using (Ajax.BeginForm("UploadImage", "Design", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "MainContainer" }))
+@using (Ajax.BeginForm("UploadImage", "Design", null,new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "MainContainer" }, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     

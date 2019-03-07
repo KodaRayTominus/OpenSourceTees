@@ -2,6 +2,7 @@
 using OpenSourceTees.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -15,11 +16,10 @@ namespace OpenSourceTees.Controllers
     {
         BlobUtility utility;
         ApplicationDbContext db;
-        string accountName = "opensourceteeblob";
-        string accountKey = "88B22cx6S2sdVOJ2jGWtThftow3LFKA+fpkh+DxBW6Oy48U/0Pn/iuUi3TmHiVl+9vE+4Jq4thqtn6qpaBxY8w==";
+        string ContainerName = ConfigurationManager.AppSettings["BlobStorageBlobName"];
         public DesignController()
         {
-            utility = new BlobUtility(accountName, accountKey);
+            utility = new BlobUtility();
             db = new ApplicationDbContext();
         }
 
@@ -64,9 +64,8 @@ namespace OpenSourceTees.Controllers
             if (Request.IsAjaxRequest())
             {
                 
-                if (tee.File != null && ModelState.IsValid)
-                {
-                    string ContainerName = "blobs"; //hardcoded container name. 
+                if (tee.File != null)
+                { 
                     tee.File = tee.File ?? Request.Files["file"];
                     string fileName = Path.GetFileName(tee.File.FileName);
                     Stream imageStream = tee.File.InputStream;

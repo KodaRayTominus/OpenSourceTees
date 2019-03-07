@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.Configuration;
 using System.IO;
 
 namespace OpenSourceTees.Models
@@ -8,9 +9,9 @@ namespace OpenSourceTees.Models
     public class BlobUtility
     {
         public CloudStorageAccount storageAccount;
-        public BlobUtility(string AccountName, string AccountKey)
+        public BlobUtility()
         {
-            string UserConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", AccountName, AccountKey);
+            string UserConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(UserConnectionString);
         }
 
