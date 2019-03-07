@@ -195,7 +195,7 @@
             function load() {
 
                 var preloader_cont = document.getElementById("preloader_cont");
-                m_data.load("./Design/TeeShirtToExport.json", load_cb);
+                m_data.load("./Designs/TeeShirtToExport.json", load_cb);
             }
 
             function preloader_cb(percentage) {
@@ -223,6 +223,7 @@
             load_image = function (imageURL) {
                 var my_image = new Image();
                 var shirt = m_scenes.get_object_by_name("T-Shirt");
+                my_image.crossOrigin = "anonymous";
                 my_image.src = imageURL;
                 my_image.onload = function () {
                     m_tex.replace_image(shirt, "Texture", my_image);

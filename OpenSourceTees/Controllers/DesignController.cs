@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace OpenSourceTees.Controllers
@@ -98,6 +99,8 @@ namespace OpenSourceTees.Controllers
 
         }
 
+
+        [EnableCors(origins: "https://opensourceteeblob.blob.core.windows.net/", headers: "*", methods: "*")]
         public ActionResult Search(string keywords, int? SkipN, int? TakeN)
         {
             //Console.WriteLine(db.udf_imageSearch(keywords, SkipN, TakeN).ToList());
