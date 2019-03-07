@@ -58,19 +58,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary btn-dark" />
+                <input type="button" value="Details" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','Details', @Model.Id)" />
+                <input type="button" value="Back to List" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','Index')" />
             </div>
         </div>
     </div>
 }
 
-    <div>
-        <ul>
-            <li class="btn btn-dark btn-primary nav-item active" onclick="ChangePage('Design','Index')">
-                Back to List
-            </li>
-            <li class="btn btn-info btn-secondary" onclick="ChangePage('Design','Details', @Model.Id)">
-                Details
-            </li>
-        </ul>
-    </div>
