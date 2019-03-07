@@ -3,19 +3,36 @@
     <div class="col-lg-12">
 
         <div class="alert alert-warning">You have @ViewBag.PhotoCount Photos </div>
+        <ul>
+            <li class="btn btn-dark btn-secondary" onclick="ChangePage('Design','UploadImage')">
+                Upload Image
+            </li>
+        </ul>
     </div>
     @foreach (var item in Model)
     {
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+        <a class="thumbnail" href="@item.ImageUrl">
+            <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="">
+        </a>
+        <ul>
+            <li class="btn btn-warning btn-primary" onclick="ChangePage('Design','Details', @item.Id)">
+                <a href="" class="nav-button">
+                    Details
+                </a>
+            </li>
+            <li class="btn btn-danger btn-secondary" onclick="ChangePage('Design','DeleteImage', @item.Id)">
+                <a href="" class="nav-button">
+                    Delete
+                </a>
+            </li>
+        </ul>
 
-            <a class="thumbnail" href="@item.ImageUrl">
-                <img class="img-responsive" src="@item.ImageUrl" style="height: 300px;width:100%;" alt="">
-            </a>
-            <a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </a>
 
-        </div>
+
+
+
+    </div>
 
 
     }

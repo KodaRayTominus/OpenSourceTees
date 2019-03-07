@@ -2,8 +2,11 @@
 using OpenSourceTees.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,11 +16,10 @@ namespace OpenSourceTees.Controllers
     {
         BlobUtility utility;
         ApplicationDbContext db;
-        string accountName = "opensourceteeblob";
-        string accountKey = "88B22cx6S2sdVOJ2jGWtThftow3LFKA+fpkh+DxBW6Oy48U/0Pn/iuUi3TmHiVl+9vE+4Jq4thqtn6qpaBxY8w==";
+        string ContainerName = ConfigurationManager.AppSettings["BlobStorageBlobName"];
         public DesignController()
         {
-            utility = new BlobUtility(accountName, accountKey);
+            utility = new BlobUtility();
             db = new ApplicationDbContext();
         }
 
@@ -27,66 +29,73 @@ namespace OpenSourceTees.Controllers
             string loggedInUserId = User.Identity.GetUserId();
             List<Image> userImages = (from r in db.Images where r.UserId == loggedInUserId select r).ToList();
             ViewBag.PhotoCount = userImages.Count;
-            return View(userImages);
-        }
+            if (Request.IsAjaxRequest())
+                return PartialView(userImages);
 
-        public ActionResult GuestIndex()
-        {
-            string loggedInUserId = User.Identity.GetUserId();
-            List<Image> userImages = (from r in db.Images select r).ToList();
-            ViewBag.PhotoCount = userImages.Count;
-            return View(userImages);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult DeleteImage(string id)
         {
-            Image userImage = db.Images.Find(id);
-            db.Images.Remove(userImage);
-            db.SaveChanges();
-            string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
-            utility.DeleteBlob(BlobNameToDelete, "blobs");
-            return RedirectToAction("Index");
+            if (Request.IsAjaxRequest()){
+                Image userImage = db.Images.Find(id);
+                db.Images.Remove(userImage);
+                db.SaveChanges();
+                string BlobNameToDelete = userImage.ImageUrl.Split('/').Last();
+                utility.DeleteBlob(BlobNameToDelete, "blobs");
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpGet]
         public ActionResult UploadImage()
         {
-            return View();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult UploadImage(TeeShirtUploadViewModel tee)
         {
-            if (tee.File != null)
+            if (Request.IsAjaxRequest())
             {
-                string ContainerName = "blobs"; //hardcoded container name. 
-                tee.File = tee.File ?? Request.Files["file"];
-                string fileName = Path.GetFileName(tee.File.FileName);
-                Stream imageStream = tee.File.InputStream;
-                var result = utility.UploadBlob(fileName, ContainerName, imageStream);
-                if (result != null)
-                {
-                    string loggedInUserId = User.Identity.GetUserId();
-                    Image userimage = new Image();
-                    userimage.Id = new Random().Next().ToString();
-                    userimage.ImageUrl = result.Uri.ToString();
-                    userimage.UserId = loggedInUserId;
-                    userimage.Description = tee.Image.Description;
-                    userimage.DesignName = tee.Image.DesignName;
-                    userimage.Price = tee.Image.Price;
-                    db.Images.Add(userimage);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                
+                if (tee.File != null)
+                { 
+                    tee.File = tee.File ?? Request.Files["file"];
+                    string fileName = Path.GetFileName(tee.File.FileName);
+                    Stream imageStream = tee.File.InputStream;
+                    var result = utility.UploadBlob(fileName, ContainerName, imageStream);
+                    if (result != null)
+                    {
+                        string loggedInUserId = User.Identity.GetUserId();
+                        Image userimage = new Image();
+                        userimage.Id = new Random().Next().ToString();
+                        userimage.ImageUrl = result.Uri.ToString();
+                        userimage.UserId = loggedInUserId;
+                        userimage.Description = tee.Image.Description;
+                        userimage.DesignName = tee.Image.DesignName;
+                        userimage.Price = tee.Image.Price;
+                        db.Images.Add(userimage);
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return PartialView(tee);
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    return PartialView(tee);
                 }
             }
-            else
-            {
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index", "Home");
+
         }
 
         public ActionResult Search(string keywords, int? SkipN, int? TakeN)
@@ -106,9 +115,9 @@ namespace OpenSourceTees.Controllers
             {
                 SkipN = 0;
             }
-            if (String.IsNullOrEmpty(keywords))
+            if (String.IsNullOrEmpty(keywords) && Request.IsAjaxRequest())
             {
-                return View(from s in db.Images
+                return PartialView(from s in db.Images
                             select new RankedEntity<Image> { Entity = s, Rank = 1 });
             }
             var SearchList = from s in db.Images
@@ -127,7 +136,63 @@ namespace OpenSourceTees.Controllers
             if (Request.IsAjaxRequest())
                 return PartialView(SearchList.ToList());
 
-            return View(SearchList.ToList());
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult EditImage(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Image image = db.Images.Find(id);
+            if (image == null)
+            {
+                return HttpNotFound();
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(image);
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // POST: Images/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditImage([Bind(Include = "Id,ImageUrl,UserId,DesignName,Description,Price")] Image image)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(image).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(image);
+        }
+
+        // GET: Images/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Image image = db.Images.Find(id);
+            if (image == null)
+            {
+                return HttpNotFound();
+            }
+            if (Request.IsAjaxRequest())
+                return PartialView(image);
+
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

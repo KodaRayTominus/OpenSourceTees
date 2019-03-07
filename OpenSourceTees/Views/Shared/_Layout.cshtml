@@ -6,6 +6,29 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        #main_canvas_container {
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            top: 60px;
+            left: 10px;
+        }
+
+        .sidenav {
+            height: 100%; /* Full-height: remove this if you want "auto" height */
+            width: 225px; /* Set the width of the sidebar */
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            left: 0;
+            background-color: #111; /* Black */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 20px;
+        }
+    </style>
+
+    <script src="~/Js/b4w.min.js"></script>
 
 </head>
 <body>
@@ -21,6 +44,8 @@
                     <li class="nav-item active" onclick="ChangePage('Home','Home')"><a href="" class="nav-link nav-button">Home</a></li>
                     <li class="nav-item active" onclick="ChangePage('Home','About')"><a href="" class="nav-link nav-button">About</a></li>
                     <li class="nav-item active" onclick="ChangePage('Home','Contact')"><a href="" class="nav-link nav-button">Contact</a></li>
+                    <li class="nav-item active" onclick="ChangePage('Design','Search')"><a href="" class="nav-link nav-button">Browse</a></li>
+
                 </ul>
                 <div class="col-sm-3 col-md-3">
                     <form class="navbar-form" role="search" action="/Design/Search" method="get">
@@ -32,12 +57,17 @@
                         </div>
                     </form>
                 </div>
-                @Html.Partial("_LoginPartial")
+                <div id="loginPartial">
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
+        <div class="sidenav">
+            <div id="main_canvas_container"></div>
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -45,6 +75,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
@@ -87,13 +118,125 @@
             }
         }
 
-        function ChangePage(controller, view) {
+        function OnSuccess(result) {
+            $.get("/Shared/_LoginPartial", function (r) {
+                //update ui with results
+                $("#loginPartial").html(r);
+            })
+        }
+
+        function ChangePage(controller, view, data) {
+            if (data != undefined) {
+                $.get("/" + controller + "/" + view + "/" + data, function (r) {
+                    //update ui with results
+                    $("#MainContainer").html(r);
+                });
+            }
             //$.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
             $.get("/" + controller + "/" + view, function (r) {
                 //update ui with results
                 $("#MainContainer").html(r);
             });
         }
+    </script>
+
+    <script>
+        "use strict";
+
+        var load_image;
+        var m_app;
+        var m_cfg;
+        var m_data;
+        var m_preloader;
+        var m_ver;
+        var m_tex;
+        var m_scenes;
+
+        var DEBUG;
+        var APP_ASSETS_PATH;
+
+        b4w.register("TeeShirt_main", function (exports, require) {
+
+
+            m_app = require("app");
+            m_cfg = require("config");
+            m_data = require("data");
+            m_preloader = require("preloader");
+            m_ver = require("version");
+            m_tex = require("textures");
+
+            m_scenes = require("scenes");
+
+            DEBUG = (m_ver.type() == "DEBUG");
+            APP_ASSETS_PATH = m_cfg.get_std_assets_path();
+
+
+            exports.init = function () {
+                m_app.init({
+                    canvas_container_id: "main_canvas_container",
+                    callback: init_cb,
+                    show_fps: true,
+                    autoresize: true,
+                    assets_dds_available: !DEBUG,
+                    assets_min50_available: !DEBUG,
+                    console_verbose: true
+                });
+            }
+
+            function init_cb(canvas_elem, success) {
+
+                if (!success) {
+                    console.log("b4w init failure");
+                    return;
+                }
+                load();
+            }
+
+            function load() {
+
+                var preloader_cont = document.getElementById("preloader_cont");
+                m_data.load("./Design/TeeShirtToExport.json", load_cb);
+            }
+
+            function preloader_cb(percentage) {
+                var prelod_dynamic_path = document.getElementById("prelod_dynamic_path");
+                var percantage_num = prelod_dynamic_path.nextElementSibling;
+
+                prelod_dynamic_path.style.width = percentage + "%";
+                percantage_num.innerHTML = percentage + "%";
+                if (percentage == 100) {
+                    var preloader_cont = document.getElementById("preloader_cont");
+                    preloader_cont.style.visibility = "hidden";
+                    return;
+                }
+            }
+
+            function load_cb(data_id, success) {
+                if (!success) {
+                    console.log("b4w load failure");
+                    return;
+                }
+                m_app.enable_camera_controls(false, false, false, null, true);
+
+            }
+
+            load_image = function (imageURL) {
+                var my_image = new Image();
+                var shirt = m_scenes.get_object_by_name("T-Shirt");
+                my_image.src = imageURL;
+                my_image.onload = function () {
+                    m_tex.replace_image(shirt, "Texture", my_image);
+                }
+
+                var a = 1;
+            }
+
+            function create_interface(obj) {
+
+            }
+        });
+
+        b4w.require("TeeShirt_main").init();
     </script>
 </body>
 </html>
