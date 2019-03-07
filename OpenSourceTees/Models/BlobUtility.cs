@@ -20,6 +20,7 @@ namespace OpenSourceTees.Models
 
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(ContainerName.ToLower());
+            container.CreateIfNotExists();
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(BlobName);
             // blockBlob.UploadFromByteArray()
             try
