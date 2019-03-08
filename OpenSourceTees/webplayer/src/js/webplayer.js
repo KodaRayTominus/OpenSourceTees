@@ -1,8 +1,7 @@
 import b4w from "blend4web";
 import * as locale from "./locale.js";
 import style from "../scss/webplayer.scss";
-//import m_rgba from "./src/extern/rgba.js";
-//b4w.rgba = m_rgba;
+
 const m_app = b4w.app;
 const m_camera_anim = b4w.camera_anim;
 const m_camera = b4w.camera;
