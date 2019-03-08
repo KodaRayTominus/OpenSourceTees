@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSourceTees.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -35,10 +36,10 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Home()
+        public ActionResult Home(HomePageModel model)
         {
             if (Request.IsAjaxRequest())
-                return PartialView();
+                return PartialView(model);
 
             return RedirectToAction("Index", "Home");
         }
