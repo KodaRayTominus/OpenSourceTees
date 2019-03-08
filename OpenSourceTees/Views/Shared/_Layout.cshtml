@@ -66,7 +66,34 @@
     <div class="container body-content">
         @RenderBody()
         <div class="sidenav">
-            <div id="main_canvas_container"></div>
+            <div id="main_canvas_container">
+                <div>
+                    <button style="background:#FF9900" onclick="ChangeColor(this.css('background-color'))">  
+                    </button>
+                    <button style="background:#4DE633" onmouseover="">  
+                    </button>
+                    <button style="background:#80CCFF" onmouseover="">
+                    </button>
+                    <button style="background:#4DE633" onmouseover="">
+                    </button>
+                    <button style="background:#80CCFF" onmouseover="">
+                    </button>
+                </div>             
+                <div>
+                    <button style="background:#FF9900" onmouseover="">
+                    </button>
+                    <button style="background:#4DE633" onmouseover="">
+                    </button>
+                    <button style="background:#80CCFF" onmouseover="">
+                    </button>
+                    <button style="background:#4DE633" onmouseover="">
+                    </button>
+                    <button style="background:#80CCFF" onmouseover="">
+                    </button>
+                </div>
+
+            </div>
+            
         </div>
         <hr />
         <footer>
@@ -142,7 +169,6 @@
 
     <script>
         "use strict";
-
         var load_image;
         var m_app;
         var m_cfg;
@@ -151,7 +177,8 @@
         var m_ver;
         var m_tex;
         var m_scenes;
-
+        var m_mat;
+        var m_rgba;
         var DEBUG;
         var APP_ASSETS_PATH;
 
@@ -166,7 +193,8 @@
             m_tex = require("textures");
 
             m_scenes = require("scenes");
-
+            m_mat = require("material");
+            //m_rgba = require("rgba");
             DEBUG = (m_ver.type() == "DEBUG");
             APP_ASSETS_PATH = m_cfg.get_std_assets_path();
 
@@ -230,6 +258,12 @@
                 }
 
                 var a = 1;
+            }
+
+            function ChangeColor(color) {
+                alert(color);
+                //var Shirt = m_scenes.get_object_by_name("T-Shirt");
+                //m_mat.set_diffuse_color(Shirt, "T-Shirt", m_rgba.from_values(1.0, 0.0, 0.0, 1.0));
             }
 
             function create_interface(obj) {
