@@ -66,8 +66,24 @@
     <div class="container body-content">
         @RenderBody()
         <div class="sidenav">
-            <div id="main_canvas_container"></div>
-        </div>
+            <div id="main_canvas_container">
+
+
+            </div>
+            <div class="row align-items-end" style="position:absolute; top:320px; left:25px">
+                <button type="button" style="background:#FF9900; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#80CCFF; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+            </div>
+            <div class="row align-items-end" style=" position:absolute; top:350px; left:25px">
+                <button type="button" style="background:#FF9900; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#80CCFF; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+                <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
+            </div>
+        </div>                
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -142,8 +158,8 @@
 
     <script>
         "use strict";
-
         var load_image;
+        var ChangeColor;
         var m_app;
         var m_cfg;
         var m_data;
@@ -151,7 +167,8 @@
         var m_ver;
         var m_tex;
         var m_scenes;
-
+        var m_mat;
+        var m_rgb;
         var DEBUG;
         var APP_ASSETS_PATH;
 
@@ -166,7 +183,8 @@
             m_tex = require("textures");
 
             m_scenes = require("scenes");
-
+            m_mat = require("material");
+            m_rgb = require("rgb");
             DEBUG = (m_ver.type() == "DEBUG");
             APP_ASSETS_PATH = m_cfg.get_std_assets_path();
 
@@ -228,8 +246,20 @@
                 my_image.onload = function () {
                     m_tex.replace_image(shirt, "Texture", my_image);
                 }
+            }
 
-                var a = 1;
+            ChangeColor = function (colorButton) {
+                //alert($(colorButton).css("background-color"));
+                var rgb = $(colorButton).css("background-color").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);;
+                var red = parseInt(rgb[1]);
+                //alert(red);
+                var green = parseInt(rgb[2]);
+                //alert(green);
+                var blue = parseInt(rgb[3]);
+                //alert(blue);
+                var Shirt = m_scenes.get_object_by_name("T-Shirt");
+                m_mat.set_diffuse_color(Shirt, "T-Shirt", [parseFloat(red / 255), parseFloat(green / 255), parseFloat(blue / 255), 0]);
+                m_mat.set_nodemat_rgb(Shirt, ["T-Shirt", "RGB"], 0, 1, 0)
             }
 
             function create_interface(obj) {
