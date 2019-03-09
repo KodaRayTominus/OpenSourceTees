@@ -43,21 +43,18 @@ namespace OpenSourceTees.Controllers
         {
             db = new ApplicationDbContext();
 
-            var model = new HomePageModel()
-            {
-                NewFeed = (from i in db.Images
-                           select i).Reverse().Take(6).Reverse().ToList(),
+            var model = new HomePageModel();
 
-                HotFeed = (from i in db.Images
-                           join po in db.PurchaseOrders on i.Id equals po.ImageId into mi
-                           orderby mi.Count() descending
-                           select i).Take(3).ToList()
-            };
+            List<Image> temp = (from i in db.Images
+                                select i).ToList();
+            temp.Reverse();
 
-            //var products = (from product in Products
-            //                join item in items on product equals item.Product into matchingItems
-            //                orderby matchingItems.Sum(oi => oi.Qty)
-            //                select product).Take(10);
+            model.NewFeed = temp.Take(6).ToList();
+
+            model.HotFeed = (from i in db.Images
+                       join po in db.PurchaseOrders on i.Id equals po.ImageId into mi
+                       orderby mi.Count() descending
+                       select i).Take(3).ToList();
 
             if (Request.IsAjaxRequest())
                 return PartialView(model);

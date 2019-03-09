@@ -10,5 +10,11 @@ namespace OpenSourceTees.Models
         public List<Image> HotFeed { get; set; }
 
         public List<Image> NewFeed { get; set; }
+
+        public HomePageModel()
+        {
+            HotFeed = new List<Image>();
+            NewFeed = new List<Image>();
+        }
     }
 }
