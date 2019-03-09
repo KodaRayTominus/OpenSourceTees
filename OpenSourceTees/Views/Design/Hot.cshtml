@@ -1,8 +1,7 @@
-﻿@model OpenSourceTees.Models.HomePageModel
+﻿@model IEnumerable<OpenSourceTees.Models.Image>
 <head>
     <link href="~/Content/shop-homepage.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- Page Content -->
     <div class="container">
@@ -12,35 +11,14 @@
                 <ul class="list-group">
                     <li href="" class="list-group-item" onclick="ChangePage('Design','Hot')">Hot List</li>
                     <li href="" class="list-group-item" onclick="ChangePage('Design','New')">New List</li>
-                    <li href="" class="list-group-item" >To be announced</li>
+                    <li href="" class="list-group-item">To be announced</li>
                 </ul>
             </div>
             <!-- /.col-lg-3 -->
             <div class="col-lg-9">
                 <h2>What's Hot?</h2>
                 <div class="row">
-                    @foreach (var item in Model.HotFeed)
-                    {
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="@item.ImageUrl" alt="" onclick="load_image('@item.ImageUrl')"></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="#">@item.DesignName</a>
-                                    </h4>
-                                    <h5>$@item.Price</h5>
-                                    <p class="card-text">@item.Description</p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">@item.GetDesignerUserName()</small>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <h2>What's New?</h2>
-                <div class="row">
-                    @foreach (var item in Model.NewFeed)
+                    @foreach (var item in Model)
                     {
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">

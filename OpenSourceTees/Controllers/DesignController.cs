@@ -196,5 +196,32 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Hot()
+        {
+            var list = (from i in db.Images
+                        join po in db.PurchaseOrders on i.Id equals po.ImageId into mi
+                        orderby mi.Count() descending
+                        select i).Take(20).ToList();
+
+            if (Request.IsAjaxRequest())
+                return PartialView(list);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult New()
+        {
+            List<Image> temp = (from i in db.Images
+                                select i).ToList();
+            temp.Reverse();
+
+            var list = temp.Take(20).ToList();
+
+            if (Request.IsAjaxRequest())
+                return PartialView(list);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
