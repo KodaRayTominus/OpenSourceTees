@@ -240,6 +240,10 @@
     <Compile Include="Migrations\201903090018345_orders.Designer.cs">
       <DependentUpon>201903090018345_orders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903090554179_updatedPurchaseOrder.cs" />
+    <Compile Include="Migrations\201903090554179_updatedPurchaseOrder.Designer.cs">
+      <DependentUpon>201903090554179_updatedPurchaseOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903090018345_orders.resx">
       <DependentUpon>201903090018345_orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903090554179_updatedPurchaseOrder.resx">
+      <DependentUpon>201903090554179_updatedPurchaseOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
