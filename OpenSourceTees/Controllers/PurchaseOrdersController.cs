@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using OpenSourceTees.Models;
 
 namespace OpenSourceTees.Controllers
@@ -17,8 +18,10 @@ namespace OpenSourceTees.Controllers
         // GET: PurchaseOrders
         public ActionResult Index()
         {
-            var purchaseOrders = db.PurchaseOrders.Include(p => p.Image);
-            return View(purchaseOrders.ToList());
+            var purchaseOrders = from order in db.PurchaseOrders
+                                 where(order.BuyerId == User.Identity.GetUserId())
+                                 select order;
+            return PartialView(purchaseOrders.ToList());
         }
 
         // GET: PurchaseOrders/Details/5
@@ -33,7 +36,7 @@ namespace OpenSourceTees.Controllers
             {
                 return HttpNotFound();
             }
-            return View(purchaseOrder);
+            return PartialView(purchaseOrder);
         }
 
         // GET: PurchaseOrders/Create
@@ -52,46 +55,15 @@ namespace OpenSourceTees.Controllers
         {
             if (ModelState.IsValid)
             {
+                //send emails
+
                 db.PurchaseOrders.Add(purchaseOrder);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return PartialView("OrderCompleted");
             }
 
             ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl", purchaseOrder.ImageId);
-            return View(purchaseOrder);
-        }
-
-        // GET: PurchaseOrders/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PurchaseOrder purchaseOrder = db.PurchaseOrders.Find(id);
-            if (purchaseOrder == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl", purchaseOrder.ImageId);
-            return View(purchaseOrder);
-        }
-
-        // POST: PurchaseOrders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TotalPrice,BuyerId,ImageId")] PurchaseOrder purchaseOrder)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(purchaseOrder).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl", purchaseOrder.ImageId);
-            return View(purchaseOrder);
+            return PartialView(purchaseOrder);
         }
 
         // GET: PurchaseOrders/Delete/5
@@ -106,7 +78,7 @@ namespace OpenSourceTees.Controllers
             {
                 return HttpNotFound();
             }
-            return View(purchaseOrder);
+            return PartialView(purchaseOrder);
         }
 
         // POST: PurchaseOrders/Delete/5

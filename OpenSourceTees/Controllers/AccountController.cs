@@ -88,7 +88,7 @@ namespace OpenSourceTees.Controllers
                         // Uncomment to debug locally  
                         // ViewBag.Link = callbackUrl;
                         ViewBag.errorMessage = "You must have a confirmed email to log on.";
-                        return View("Error");
+                        return PartialView("Error");
                     }
                 }
 
@@ -100,13 +100,13 @@ namespace OpenSourceTees.Controllers
                     case SignInStatus.Success:
                         return RedirectToAction("Home", "Home");
                     case SignInStatus.LockedOut:
-                        return View("Lockout");
+                        return PartialView("Lockout");
                     case SignInStatus.RequiresVerification:
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
+                        return PartialView(model);
                 }
             }
             return RedirectToAction("Home", "Home");
@@ -121,9 +121,9 @@ namespace OpenSourceTees.Controllers
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
-                return View("Error");
+                return PartialView("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return PartialView(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -135,7 +135,7 @@ namespace OpenSourceTees.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
 
             // The following code protects for brute force attacks against the two factor codes. 
@@ -148,11 +148,11 @@ namespace OpenSourceTees.Controllers
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return PartialView("Lockout");
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
-                    return View(model);
+                    return PartialView(model);
             }
         }
 
@@ -190,7 +190,7 @@ namespace OpenSourceTees.Controllers
                         ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                                         + "before you can log in.";
 
-                        return View("Info");
+                        return PartialView("Info");
                         //return RedirectToAction("Index", "Home");
                     }
                     AddErrors(result);
@@ -221,7 +221,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -237,7 +237,7 @@ namespace OpenSourceTees.Controllers
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    return PartialView("ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -249,7 +249,7 @@ namespace OpenSourceTees.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return PartialView(model);
         }
 
         //
@@ -257,7 +257,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -265,7 +265,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            return code == null ? PartialView("Error") : PartialView();
         }
 
         //
@@ -277,7 +277,7 @@ namespace OpenSourceTees.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
@@ -291,7 +291,7 @@ namespace OpenSourceTees.Controllers
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);
-            return View();
+            return PartialView();
         }
 
         //
@@ -299,7 +299,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -325,7 +325,7 @@ namespace OpenSourceTees.Controllers
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return PartialView(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -337,13 +337,13 @@ namespace OpenSourceTees.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return PartialView();
             }
 
             // Generate the token and send it
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
-                return View("Error");
+                return PartialView("Error");
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
@@ -374,7 +374,7 @@ namespace OpenSourceTees.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return PartialView("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -396,7 +396,7 @@ namespace OpenSourceTees.Controllers
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    return View("ExternalLoginFailure");
+                    return PartialView("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
@@ -413,7 +413,7 @@ namespace OpenSourceTees.Controllers
             }
 
             ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+            return PartialView(model);
         }
 
         //
@@ -431,7 +431,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            return View();
+            return PartialView();
         }
 
         protected override void Dispose(bool disposing)
