@@ -43,6 +43,7 @@ namespace OpenSourceTees.Models
         }
 
         public DbSet<Image> Images { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<KeyRank> KeyRanks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

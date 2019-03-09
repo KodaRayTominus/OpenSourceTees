@@ -25,5 +25,14 @@ namespace OpenSourceTees.Models
         public double Price { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string GetDesignerUserName()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            return (from user in db.Users
+                    where (user.Id == UserId)
+                    select user.UserName).ToList()[0].ToString();
+        }
     }
 }
