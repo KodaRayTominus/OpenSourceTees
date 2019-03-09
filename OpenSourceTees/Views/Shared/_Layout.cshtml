@@ -82,11 +82,11 @@
                 <button type="button" style="background:#80CCFF; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
                 <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
             </div>
+            <div id="ItemDetails" style="position:absolute; bottom:10px">
+
+            </div>
         </div>
         
-        <div id="itemDetails">
-
-        </div>
 
         <hr />
         <footer>
@@ -158,12 +158,21 @@
                 $("#MainContainer").html(r);
             });
         }
+
+        function CalculateTotal() {
+            var qty = parseInt($("#qty").val());
+            var price = parseFloat($("#price").val());
+            $("#totalPrice").val(String(parseFloat(qty * price)));
+        }
     </script>
 
     <script>
         "use strict";
+        var image_onclick;
+        var spawnOrderForm;
         var load_image;
         var ChangeColor;
+        var UpdateItemDetails;
         var m_app;
         var m_cfg;
         var m_data;
@@ -242,6 +251,15 @@
 
             }
 
+            image_onclick = function (imagePrice, ImageId, ImageUrl, userId) {
+                if ($("#ItemDetails").children().length == 0) {
+                    spawnOrderForm();
+                }
+                load_image(ImageUrl);
+                var timer = 0;
+                setTimeout(function () { UpdateItemDetails(imagePrice, ImageId, userId); }, 1000);
+            }
+
             load_image = function (imageURL) {
                 var attr = $("#sidenav").attr('hidden');
                 if (typeof attr !== typeof undefined && attr !== false) {
@@ -254,6 +272,23 @@
                 my_image.onload = function () {
                     m_tex.replace_image(shirt, "Texture", my_image);
                 }
+            }
+
+            UpdateItemDetails = function (imagePrice, ImageId, userId) {
+                ($("#price")).val(String(imagePrice));
+                ($("#qty")).val(String(1));
+                ($("#totalPrice")).val(String(imagePrice));
+                ($("#ImageId")).val(String(ImageId));
+                if (userId != undefined) {
+                    ($("#BuyerId")).val(String(userId));
+                }
+            }
+
+            spawnOrderForm = function () {
+                $.get("/PurchaseOrders/Create", function (r) {
+                    //update ui with results
+                    $("#ItemDetails").html(r);
+                });
             }
 
             ChangeColor = function (colorButton) {

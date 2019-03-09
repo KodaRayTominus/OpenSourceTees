@@ -40,7 +40,7 @@ namespace OpenSourceTees.Controllers
         public ActionResult Create()
         {
             ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl");
-            return View();
+            return PartialView();
         }
 
         // POST: PurchaseOrders/Create

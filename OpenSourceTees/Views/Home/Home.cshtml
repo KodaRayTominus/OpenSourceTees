@@ -3,6 +3,7 @@
     <link href="~/Content/shop-homepage.css" rel="stylesheet">
 </head>
 
+@using Microsoft.AspNet.Identity;
 <body>
     <!-- Page Content -->
     <div class="container">
@@ -12,7 +13,7 @@
                 <ul class="list-group">
                     <li href="" class="list-group-item" onclick="ChangePage('Design','Hot')">Hot List</li>
                     <li href="" class="list-group-item" onclick="ChangePage('Design','New')">New List</li>
-                    <li href="" class="list-group-item" >To be announced</li>
+                    <li href="" class="list-group-item">To be announced</li>
                 </ul>
             </div>
             <!-- /.col-lg-3 -->
@@ -23,7 +24,7 @@
                     {
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="@item.ImageUrl" alt="" onclick="load_image('@item.ImageUrl')"></a>
+                                <a href="#"><img class="card-img-top" src="@item.ImageUrl" alt="" onclick="image_onclick(@item.Price, '@item.Id', '@item.ImageUrl' @User.Identity.GetUserId())"></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a href="#">@item.DesignName</a>
@@ -44,7 +45,7 @@
                     {
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="@item.ImageUrl" alt="" onclick="load_image('@item.ImageUrl')"></a>
+                                <a href="#"><img class="card-img-top" src="@item.ImageUrl" alt="" onclick="image_onclick(@item.Price, '@item.Id', '@item.ImageUrl' @User.Identity.GetUserId())"></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a href="#">@item.DesignName</a>
