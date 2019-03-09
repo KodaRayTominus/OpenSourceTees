@@ -65,7 +65,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <div class="sidenav">
+        <div class="sidenav" id="sidenav" hidden="hidden">
             <div id="main_canvas_container">
 
 
@@ -82,7 +82,11 @@
                 <button type="button" style="background:#80CCFF; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
                 <button type="button" style="background:#4DE633; height:30px; width:50px" class="col-md-3" onclick="ChangeColor(this)"></button>
             </div>
-        </div>                
+        </div>
+        
+        <div id="itemDetails">
+
+        </div>
 
         <hr />
         <footer>
@@ -239,6 +243,10 @@
             }
 
             load_image = function (imageURL) {
+                var attr = $("#sidenav").attr('hidden');
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    $("#sidenav").removeAttr('hidden');
+                }
                 var my_image = new Image();
                 var shirt = m_scenes.get_object_by_name("T-Shirt");
                 my_image.crossOrigin = "anonymous";
