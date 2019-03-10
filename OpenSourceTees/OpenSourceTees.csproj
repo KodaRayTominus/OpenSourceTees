@@ -224,25 +224,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020819214_tagsearch.cs" />
-    <Compile Include="Migrations\201903020819214_tagsearch.Designer.cs">
-      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
+    <Compile Include="Migrations\201903100141296_initial.cs" />
+    <Compile Include="Migrations\201903100141296_initial.Designer.cs">
+      <DependentUpon>201903100141296_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020819211_initial.cs" />
-    <Compile Include="Migrations\201903020819211_initial.Designer.cs">
-      <DependentUpon>201903020819211_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903060556000_updatedImage.cs" />
-    <Compile Include="Migrations\201903060556000_updatedImage.Designer.cs">
-      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903090018345_orders.cs" />
-    <Compile Include="Migrations\201903090018345_orders.Designer.cs">
-      <DependentUpon>201903090018345_orders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903090554179_updatedPurchaseOrder.cs" />
-    <Compile Include="Migrations\201903090554179_updatedPurchaseOrder.Designer.cs">
-      <DependentUpon>201903090554179_updatedPurchaseOrder.cs</DependentUpon>
+    <Compile Include="Migrations\201903100144334_tagsearch.cs" />
+    <Compile Include="Migrations\201903100144334_tagsearch.Designer.cs">
+      <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -482,27 +470,18 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903020819214_tagsearch.resx">
-      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903020819211_initial.resx">
-      <DependentUpon>201903020819211_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903060556000_updatedImage.resx">
-      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903090018345_orders.resx">
-      <DependentUpon>201903090018345_orders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903090554179_updatedPurchaseOrder.resx">
-      <DependentUpon>201903090554179_updatedPurchaseOrder.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903100141296_initial.resx">
+      <DependentUpon>201903100141296_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903100144334_tagsearch.resx">
+      <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

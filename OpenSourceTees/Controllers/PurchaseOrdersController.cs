@@ -51,7 +51,7 @@ namespace OpenSourceTees.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TotalPrice,BuyerId,ImageId")] PurchaseOrder purchaseOrder)
+        public ActionResult Create([Bind(Include = "TotalPrice, ItemPrice, Quantity, BuyerId, ImageId")] PurchaseOrder purchaseOrder)
         {
             if (ModelState.IsValid)
             {

@@ -13,7 +13,7 @@ namespace OpenSourceTees.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201902280740553_tagsearch"; }
+            get { return "201903100144334_tagsearch"; }
         }
         
         string IMigrationMetadata.Source

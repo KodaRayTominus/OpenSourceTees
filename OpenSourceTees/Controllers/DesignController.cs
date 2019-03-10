@@ -212,11 +212,10 @@ namespace OpenSourceTees.Controllers
 
         public ActionResult New()
         {
-            List<Image> temp = (from i in db.Images
-                                select i).ToList();
-            temp.Reverse();
 
-            var list = temp.Take(20).ToList();
+            var list = (from i in db.Images
+                        orderby i.CreatedDate descending
+                        select i).Take(20).ToList();
 
             if (Request.IsAjaxRequest())
                 return PartialView(list);

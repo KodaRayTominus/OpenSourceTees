@@ -12,11 +12,12 @@ namespace OpenSourceTees.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        ImageUrl = c.String(),
+                        ImageUrl = c.String(nullable: false),
                         UserId = c.String(),
-                        DesignName = c.String(),
-                        Description = c.String(),
+                        DesignName = c.String(nullable: false),
+                        Description = c.String(nullable: false),
                         Price = c.Double(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false, defaultValueSql: "GETUTCDATE()"),
                         ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -92,6 +93,24 @@ namespace OpenSourceTees.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.PurchaseOrders",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        TotalPrice = c.Double(nullable: false),
+                        ItemPrice = c.Double(nullable: false),
+                        Quantity = c.Int(nullable: false),
+                        BuyerId = c.String(),
+                        ImageId = c.String(maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.Images", t => t.ImageId)
+                .Index(t => t.ImageId)
+                .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -106,11 +125,15 @@ namespace OpenSourceTees.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.PurchaseOrders", "ImageId", "dbo.Images");
+            DropForeignKey("dbo.PurchaseOrders", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Images", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.PurchaseOrders", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.PurchaseOrders", new[] { "ImageId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -118,6 +141,7 @@ namespace OpenSourceTees.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Images", new[] { "ApplicationUser_Id" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.PurchaseOrders");
             DropTable("dbo.KeyRanks");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
