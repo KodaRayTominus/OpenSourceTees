@@ -1,40 +1,43 @@
 ﻿@model OpenSourceTees.Models.PurchaseOrder
 
-@using (Ajax.BeginForm("PurchaseOrder", "Create", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ItemDetails" }))
+@using (Ajax.BeginForm("Create", "PurchaseOrders", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ItemDetails" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>PurchaseOrder</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4>PurchaseOrder</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control", id = "price", disabled = "disabled" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", onchange = "CalculateTotal()", id = "qty" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control", id = "totalPrice", disabled = "disabled" } })
-            </div>
-        </div>
-        @Html.HiddenFor(model => model.ImageId, new { @id = "ImageId" })
-        @Html.HiddenFor(model => model.BuyerId, new { @id = "BuyerId" })
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control", id = "price", disabled = "disabled" } })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", onchange = "CalculateTotal()", id = "qty" } })
+            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control", id = "totalPrice", disabled = "disabled" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.HiddenFor(model => model.ImageId, new { @id = "ImageId" })
+        @Html.HiddenFor(model => model.BuyerId, new { @id = "BuyerId" })
+        @Html.ValidationMessageFor(model => model.BuyerId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }

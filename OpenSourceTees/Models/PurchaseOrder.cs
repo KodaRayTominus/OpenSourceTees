@@ -20,6 +20,7 @@ namespace OpenSourceTees.Models
         [Required]
         public int Quantity { get; set; }
 
+        [Required(ErrorMessage = "You must be signed in to purchase!")]
         public string BuyerId { get; set; }
 
         public string ImageId { get; set; }

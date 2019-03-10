@@ -42,7 +42,6 @@ namespace OpenSourceTees.Controllers
         // GET: PurchaseOrders/Create
         public ActionResult Create()
         {
-            ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl");
             return PartialView();
         }
 
@@ -51,7 +50,7 @@ namespace OpenSourceTees.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TotalPrice, ItemPrice, Quantity, BuyerId, ImageId")] PurchaseOrder purchaseOrder)
+        public ActionResult Create([Bind(Include = "ItemPrice,Quantity,TotalPrice,ImageId,BuyerId")] PurchaseOrder purchaseOrder)
         {
             if (ModelState.IsValid)
             {
@@ -59,10 +58,10 @@ namespace OpenSourceTees.Controllers
 
                 db.PurchaseOrders.Add(purchaseOrder);
                 db.SaveChanges();
-                return PartialView("OrderCompleted");
-            }
 
-            ViewBag.ImageId = new SelectList(db.Images, "Id", "ImageUrl", purchaseOrder.ImageId);
+                return RedirectToAction("Index", "Home");
+            }
+            
             return PartialView(purchaseOrder);
         }
 

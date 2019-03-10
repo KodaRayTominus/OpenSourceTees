@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201903100144334_tagsearch.Designer.cs">
       <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903100244437_OrderErrorMessage.cs" />
+    <Compile Include="Migrations\201903100244437_OrderErrorMessage.Designer.cs">
+      <DependentUpon>201903100244437_OrderErrorMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlobUtility.cs" />
@@ -481,6 +485,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903100144334_tagsearch.resx">
       <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903100244437_OrderErrorMessage.resx">
+      <DependentUpon>201903100244437_OrderErrorMessage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
