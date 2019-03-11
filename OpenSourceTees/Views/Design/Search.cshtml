@@ -2,45 +2,47 @@
 @{
     ViewBag.Title = "Search";
 }
-
+<head>
+    <link href="~/Content/shop-homepage.css" rel="stylesheet">
+</head>
 @using Microsoft.AspNet.Identity;
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity.DesignName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Entity.Price)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img class="img-responsive" src="@item.Entity.ImageUrl" style="height: 128px;width:128px;" alt="" onclick="image_onclick(@item.Entity.Price, '@item.Entity.Id', '@item.Entity.ImageUrl' @User.Identity.GetUserId())">
-
-                @*<a href="@Url.Action("DeleteImage", "Design",new { id = item.Id })" class="btn btn-default btn-block">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entity.DesignName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entity.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entity.Price)
-            </td>
-        </tr>
-    }
-
-</table>
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="my-4">Open Source Tee's</h1>
+                <ul class="list-group">
+                    <li href="" class="list-group-item" onclick="ChangePage('Design','Hot')">Hot List</li>
+                    <li href="" class="list-group-item" onclick="ChangePage('Design','New')">New List</li>
+                    <li href="" class="list-group-item">To be announced</li>
+                </ul>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-9">
+                <h2>What's Hot?</h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <img class="card-img-top" src="@item.Entity.ImageUrl" alt="" onclick="image_onclick(@item.Entity.Price, '@item.Entity.Id', '@item.Entity.ImageUrl', '@User.Identity.GetUserId()')">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <input type="button" value="@item.Entity.DesignName" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','Details', @item.Entity.Id)" />
+                                        <input type="button" value="@item.Entity.GetDesignerUserName()" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','ByUser', @item.Entity.UserId)" />
+                                    </h4>
+                                    <h5>$@item.Entity.Price</h5>
+                                    <p class="card-text">@item.Entity.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.col-lg-9 -->
+        </div>
+        <!-- /.row -->
+    </div>
+</body>

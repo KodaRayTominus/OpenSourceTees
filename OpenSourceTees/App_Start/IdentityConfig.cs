@@ -31,7 +31,7 @@ namespace OpenSourceTees
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
             myMessage.From = new System.Net.Mail.MailAddress(
-                                "tominus5990@student.cptc.edu", "Koda T");
+                                "Koda.tominus@gmail.com", "Koda T.");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
@@ -115,8 +115,12 @@ namespace OpenSourceTees
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                   new DataProtectorTokenProvider<ApplicationUser>
+                      (dataProtectionProvider.Create("ASP.NET Identity"))
+                   {
+                       TokenLifespan = TimeSpan.FromHours(3)
+                   };
             }
             return manager;
         }

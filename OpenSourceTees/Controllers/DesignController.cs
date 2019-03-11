@@ -175,7 +175,7 @@ namespace OpenSourceTees.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(image);
+            return PartialView(image);
         }
 
         // GET: Images/Details/5
@@ -219,6 +219,17 @@ namespace OpenSourceTees.Controllers
 
             if (Request.IsAjaxRequest())
                 return PartialView(list);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ByUser(string id)
+        {
+            List<Image> userImages = (from r in db.Images where r.UserId == id select r).ToList();
+            ViewBag.PhotoCount = userImages.Count;
+            if (Request.IsAjaxRequest())
+                return PartialView(userImages);
+            ViewBag.UserName = db.Users.Find(id).UserName;
 
             return RedirectToAction("Index", "Home");
         }

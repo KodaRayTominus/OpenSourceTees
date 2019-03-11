@@ -21,7 +21,10 @@ namespace OpenSourceTees.Controllers
             var purchaseOrders = from order in db.PurchaseOrders
                                  where(order.BuyerId == User.Identity.GetUserId())
                                  select order;
-            return PartialView(purchaseOrders.ToList());
+            if (Request.IsAjaxRequest())
+                return PartialView(purchaseOrders.ToList());
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: PurchaseOrders/Details/5
@@ -36,13 +39,19 @@ namespace OpenSourceTees.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(purchaseOrder);
+            if (Request.IsAjaxRequest())
+                return PartialView(purchaseOrder);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: PurchaseOrders/Create
         public ActionResult Create()
         {
-            return PartialView();
+            if (Request.IsAjaxRequest())
+                return PartialView();
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: PurchaseOrders/Create
@@ -61,8 +70,11 @@ namespace OpenSourceTees.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            
-            return PartialView(purchaseOrder);
+
+            if (Request.IsAjaxRequest())
+                return PartialView(purchaseOrder);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: PurchaseOrders/Delete/5
@@ -77,7 +89,10 @@ namespace OpenSourceTees.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(purchaseOrder);
+            if (Request.IsAjaxRequest())
+                return PartialView(purchaseOrder);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: PurchaseOrders/Delete/5

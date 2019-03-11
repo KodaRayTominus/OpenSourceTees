@@ -29,6 +29,25 @@ namespace OpenSourceTees.Models
         
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+        public PurchaseOrder()
+        {
+
+        }
+
+        //"ItemPrice,Quantity,TotalPrice,ImageId,BuyerId")
+        public PurchaseOrder(double itemPrice, int qty, double totalPrice, string image, string buyer)
+        {
+            TotalPrice = totalPrice;
+
+            ItemPrice = itemPrice;
+
+            Quantity = qty;
+
+            BuyerId = buyer;
+
+            ImageId = image;
+        }
+
         public PurchaseOrder(double itemPrice, int qty, string buyer, string image)
         {
             TotalPrice = qty * TotalPrice;

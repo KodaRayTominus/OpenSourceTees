@@ -1,6 +1,6 @@
 ﻿@model OpenSourceTees.Models.PurchaseOrder
 
-@using (Ajax.BeginForm("Create", "PurchaseOrders", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ItemDetails" }))
+@using (Ajax.BeginForm("Create", "PurchaseOrders", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ItemDetails" }))
 {
     @Html.AntiForgeryToken()
 

@@ -244,6 +244,7 @@
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\KeyRank.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessageTester.cs" />
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\RankedEntity.cs" />
     <Compile Include="Models\TeeShirtUploadViewModel.cs" />
@@ -464,6 +465,8 @@
     <Content Include="Views\PurchaseOrders\Index.cshtml" />
     <Content Include="Views\Design\Hot.cshtml" />
     <Content Include="Views\Design\New.cshtml" />
+    <Content Include="Views\Design\ByUser.cshtml" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
