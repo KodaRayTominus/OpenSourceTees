@@ -191,7 +191,7 @@ namespace OpenSourceTees.Controllers
             if (Request.IsAjaxRequest()) { 
                 if (ModelState.IsValid)
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
@@ -221,12 +221,9 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-
-            if (Request.IsAjaxRequest())
-            {
                 if (userId == null || code == null)
                 {
-                    return PartialView("Error");
+                    return View("Error");
                 }
                 IdentityResult result;
                 try
@@ -237,7 +234,7 @@ namespace OpenSourceTees.Controllers
                 {
                     // ConfirmEmailAsync throws when the userId is not found.
                     ViewBag.errorMessage = ioe.Message;
-                    return PartialView("Error");
+                    return View("Error");
                 }
 
                 if (result.Succeeded)
@@ -248,9 +245,7 @@ namespace OpenSourceTees.Controllers
                 // If we got this far, something failed.
                 AddErrors(result);
                 ViewBag.errorMessage = "ConfirmEmail failed";
-                return PartialView("Error");
-            }
-            return RedirectToAction("Index", "Home");
+                return View("Error");
         }
 
         //

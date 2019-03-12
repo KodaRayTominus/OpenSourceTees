@@ -1,18 +1,19 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Ajax.BeginForm("LogOff", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure", UpdateTargetId = "MainContainer" },
+                    new { id = "loginForm", returnUrl = ViewBag.ReturnUrl }))
     {
     @Html.AntiForgeryToken()
 
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-    </li>
-    <li class="nav-item active" onclick="ChangePage('Design','Index')"><a href="" class="nav-link nav-button">My Images</a></li>
-    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item active" onclick="ChangePage('Manage','Index')">
+            <a href="" class="nav-link nav-button">Hello @User.Identity.GetUserName()!</a>
+        </li>
+        <li class="nav-item active" onclick="ChangePage('Design','Index')"><a href="" class="nav-link nav-button">My Images</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 
-</ul>
+    </ul>
     }
 }
 else
