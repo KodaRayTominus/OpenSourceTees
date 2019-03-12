@@ -224,17 +224,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903100141296_initial.cs" />
-    <Compile Include="Migrations\201903100141296_initial.Designer.cs">
-      <DependentUpon>201903100141296_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903100144334_tagsearch.cs" />
-    <Compile Include="Migrations\201903100144334_tagsearch.Designer.cs">
-      <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903100244437_OrderErrorMessage.cs" />
-    <Compile Include="Migrations\201903100244437_OrderErrorMessage.Designer.cs">
-      <DependentUpon>201903100244437_OrderErrorMessage.cs</DependentUpon>
+    <Compile Include="Migrations\201903112339106_initial.cs" />
+    <Compile Include="Migrations\201903112339106_initial.Designer.cs">
+      <DependentUpon>201903112339106_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -465,7 +457,6 @@
     <Content Include="Views\Design\Hot.cshtml" />
     <Content Include="Views\Design\New.cshtml" />
     <Content Include="Views\Design\ByUser.cshtml" />
-    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -482,14 +473,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903100141296_initial.resx">
-      <DependentUpon>201903100141296_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903100144334_tagsearch.resx">
-      <DependentUpon>201903100144334_tagsearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903100244437_OrderErrorMessage.resx">
-      <DependentUpon>201903100244437_OrderErrorMessage.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903112339106_initial.resx">
+      <DependentUpon>201903112339106_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -100,7 +100,7 @@ namespace OpenSourceTees.Migrations
                         TotalPrice = c.Double(nullable: false),
                         ItemPrice = c.Double(nullable: false),
                         Quantity = c.Int(nullable: false),
-                        BuyerId = c.String(),
+                        BuyerId = c.String(nullable: false),
                         ImageId = c.String(maxLength: 128),
                         ApplicationUser_Id = c.String(maxLength: 128),
                     })
@@ -119,7 +119,47 @@ namespace OpenSourceTees.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
+
+            Sql(@"CREATE UNIQUE INDEX PK_Images_Id ON Images(Id) 
+                GO
+                CREATE FULLTEXT CATALOG tags AS DEFAULT
+                GO
+                CREATE FULLTEXT INDEX ON Images(
+                Id,
+                DesignName,
+                Description
+                )
+                KEY INDEX PK_Images_Id
+
+                ON tags;", true);
+
+            Sql(@" create function udf_imageSearch
+                    (@keywords nvarchar(4000),
+                        @SkipN int,
+                        @TakeN int)
+                    returns @srch_rslt table (Id bigint not null, Ranking int not null )
+                    as
+                    begin
+
+                        declare @TakeLast int
+                        set @TakeLast = @SkipN + @TakeN
+                        set @SkipN = @SkipN + 1
+
+                        insert into @srch_rslt
+                        select Images.Id, Ranking
+                        from 
+                        (
+                            select t.[KEY] as Id, t.[RANK] as Ranking, ROW_NUMBER() over (order by t.[Rank] desc) row_num
+                            from containstable(Images,(Description, DesignName),@keywords)
+                            as t        
+                        ) as r
+                        join Images on r.Id = Images.Id
+                        where r.row_num between @SkipN and @TakeLast
+                        order by r.Ranking desc
+
+                        return
+                    end "
+);
         }
         
         public override void Down()

@@ -7,13 +7,13 @@ namespace OpenSourceTees.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class OrderErrorMessage : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OrderErrorMessage));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903100244437_OrderErrorMessage"; }
+            get { return "201903112339106_initial"; }
         }
         
         string IMigrationMetadata.Source
