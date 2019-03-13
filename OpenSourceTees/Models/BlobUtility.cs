@@ -6,15 +6,32 @@ using System.IO;
 
 namespace OpenSourceTees.Models
 {
+    /// <summary>
+    /// object representation of the Blob Utility
+    /// </summary>
     public class BlobUtility
     {
+        /// <summary>
+        /// static storage account
+        /// </summary>
         public CloudStorageAccount storageAccount;
+
+        /// <summary>
+        /// no arg constructor
+        /// </summary>
         public BlobUtility()
         {
             string UserConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
             storageAccount = CloudStorageAccount.Parse(UserConnectionString);
         }
 
+        /// <summary>
+        /// Uploads the blob to the storage location
+        /// </summary>
+        /// <param name="BlobName">name of the blob to be uploaded</param>
+        /// <param name="ContainerName">name of the container used to upload and store the blob</param>
+        /// <param name="stream">file stream of file to obe uploaded</param>
+        /// <returns>CloundBlockBlob represents the uploaded blob</returns>
         public CloudBlockBlob UploadBlob(string BlobName, string ContainerName, Stream stream)
         {
 
@@ -38,6 +55,11 @@ namespace OpenSourceTees.Models
 
         }
 
+        /// <summary>
+        /// delets the blob
+        /// </summary>
+        /// <param name="BlobName">blob name to be deleted</param>
+        /// <param name="ContainerName">name of the container the blob is in</param>
         public void DeleteBlob(string BlobName, string ContainerName)
         {
 
@@ -47,6 +69,12 @@ namespace OpenSourceTees.Models
             blockBlob.Delete();
         }
 
+        /// <summary>
+        /// initializes the download of a blob
+        /// </summary>
+        /// <param name="BlobName">blob name to be deleted</param>
+        /// <param name="ContainerName">name of the container the blob is in</param>
+        /// <returns>blob to be downloaded</returns>
         public CloudBlockBlob DownloadBlob(string BlobName, string ContainerName)
         {
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
