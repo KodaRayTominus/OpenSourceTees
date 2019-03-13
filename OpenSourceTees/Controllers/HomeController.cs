@@ -27,8 +27,7 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home"); ;
         }
-
-        [Authorize]
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -45,16 +44,14 @@ namespace OpenSourceTees.Controllers
 
             var model = new HomePageModel();
 
-            List<Image> temp = (from i in db.Images
-                                select i).ToList();
-            temp.Reverse();
-
-            model.NewFeed = temp.Take(6).ToList();
+            model.NewFeed = (from i in db.Images
+                             orderby i.CreatedDate descending
+                             select i).Take(6).ToList();
 
             model.HotFeed = (from i in db.Images
-                       join po in db.PurchaseOrders on i.Id equals po.ImageId into mi
-                       orderby mi.Count() descending
-                       select i).Take(3).ToList();
+                             join po in db.PurchaseOrders on i.Id equals po.ImageId into mi
+                             orderby mi.Count() descending
+                             select i).Take(3).ToList();
 
             if (Request.IsAjaxRequest())
                 return PartialView(model);

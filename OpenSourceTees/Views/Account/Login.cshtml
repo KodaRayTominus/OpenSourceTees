@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Ajax.BeginForm("Login", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", UpdateTargetId = "MainContainer" },
+            @using (Ajax.BeginForm("Login", "Account", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure", UpdateTargetId = "MainContainer" },
                     new { id = "loginForm", returnUrl = ViewBag.ReturnUrl }))
             {
                 @Html.AntiForgeryToken()
@@ -46,14 +46,18 @@
 
                  //Enable this once you have account confirmation enabled for password reset functionality
                 <p>
-                    <a href="" class="nav-button" onclick="ChangePage('Account','Register')">Forgot your password?</a>
+                    <ul>
+                        <li onclick="ChangePage('Account','ForgotPassword')">
+                            <a href="" class="nav-button" >Forgot your password?</a>
+                        </li>    
+                    </ul>
                 </p>
             }
         </section>
     </div>
     <div class="col-md-4">
-        <section id="socialLoginForm">
+        @*<section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+        </section>*@
     </div>
 </div>

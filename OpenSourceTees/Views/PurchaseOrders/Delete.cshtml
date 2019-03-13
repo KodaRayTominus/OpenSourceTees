@@ -37,12 +37,17 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Ajax.BeginForm("PurchaseOrder", "Delete", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "MainContainer" }))
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <ul>
+            <li class="btn btn-dark btn-secondary" onclick="ChangePage('PurchaseOrders','Index')">
+                Back to List
+            </li>
+        </ul>
+    </div>
     }
 </div>

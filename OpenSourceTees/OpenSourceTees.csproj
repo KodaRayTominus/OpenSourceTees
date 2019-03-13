@@ -224,21 +224,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903020819214_tagsearch.cs" />
-    <Compile Include="Migrations\201903020819214_tagsearch.Designer.cs">
-      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903020819211_initial.cs" />
-    <Compile Include="Migrations\201903020819211_initial.Designer.cs">
-      <DependentUpon>201903020819211_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903060556000_updatedImage.cs" />
-    <Compile Include="Migrations\201903060556000_updatedImage.Designer.cs">
-      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903090018345_orders.cs" />
-    <Compile Include="Migrations\201903090018345_orders.Designer.cs">
-      <DependentUpon>201903090018345_orders.cs</DependentUpon>
+    <Compile Include="Migrations\201903130919154_initial.cs" />
+    <Compile Include="Migrations\201903130919154_initial.Designer.cs">
+      <DependentUpon>201903130919154_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -248,6 +236,7 @@
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\KeyRank.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderProcessing.cs" />
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\RankedEntity.cs" />
     <Compile Include="Models\TeeShirtUploadViewModel.cs" />
@@ -465,10 +454,10 @@
     <Content Include="Views\PurchaseOrders\Create.cshtml" />
     <Content Include="Views\PurchaseOrders\Delete.cshtml" />
     <Content Include="Views\PurchaseOrders\Details.cshtml" />
-    <Content Include="Views\PurchaseOrders\Edit.cshtml" />
     <Content Include="Views\PurchaseOrders\Index.cshtml" />
     <Content Include="Views\Design\Hot.cshtml" />
     <Content Include="Views\Design\New.cshtml" />
+    <Content Include="Views\Design\ByUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -479,24 +468,15 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903020819214_tagsearch.resx">
-      <DependentUpon>201903020819214_tagsearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903020819211_initial.resx">
-      <DependentUpon>201903020819211_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903060556000_updatedImage.resx">
-      <DependentUpon>201903060556000_updatedImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903090018345_orders.resx">
-      <DependentUpon>201903090018345_orders.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903130919154_initial.resx">
+      <DependentUpon>201903130919154_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

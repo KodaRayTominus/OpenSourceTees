@@ -17,7 +17,7 @@
             </div>
             <!-- /.col-lg-3 -->
             <div class="col-lg-9">
-                <h2>What's Hot?</h2>
+                <h2>@ViewBag.UserName's</h2>
                 <div class="row">
                     @foreach (var item in Model)
                     {
@@ -27,7 +27,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <input type="button" value="@item.DesignName" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','Details', '@item.Id')" />
-                                        <input type="button" value="@item.GetDesignerUserName()" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','ByUser', '@item.UserId')" />
+                                        <input type="button" value="@item.GetDesignerUserName()" class="btn btn-secondary btn-dark" onclick="ChangePage('Design','Index', '@item.UserId')" />
                                     </h4>
                                     <h5>$@item.Price</h5>
                                     <p class="card-text">@item.Description</p>

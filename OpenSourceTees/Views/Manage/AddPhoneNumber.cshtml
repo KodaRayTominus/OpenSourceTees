@@ -5,7 +5,8 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Ajax.BeginForm("AddPhoneNumber", "Manage", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", UpdateTargetId = "MainContainer" },
+                                new { returnUrl = ViewBag.ReturnUrl }))
 {
     @Html.AntiForgeryToken()
     <h4>Add a phone number</h4>
