@@ -10,6 +10,7 @@ namespace OpenSourceTees.Models
     public class OrderProcessing
     {
         [Key]
+        [ForeignKey("Order")]
         public string OrderId { get; set; }
 
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -21,6 +22,7 @@ namespace OpenSourceTees.Models
 
         public bool IsProcessed { get; set; }
 
+        [ForeignKey("ApplicationUser")]
         public string ProcessorId { get; set; }
 
         public bool IsShipped { get; set; }
@@ -30,6 +32,8 @@ namespace OpenSourceTees.Models
         public bool IsCanceled { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual PurchaseOrder Order { get; set; }
 
         public string GetProcessorUserName()
         {

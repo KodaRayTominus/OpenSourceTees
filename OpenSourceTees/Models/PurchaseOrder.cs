@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -21,8 +22,10 @@ namespace OpenSourceTees.Models
         public int Quantity { get; set; }
 
         [Required(ErrorMessage = "You must be signed in to purchase!")]
+        [ForeignKey("ApplicationUser")]
         public string BuyerId { get; set; }
-
+        
+        [ForeignKey("Image")]
         public string ImageId { get; set; }
 
         public virtual Image Image { get; set; }

@@ -15,6 +15,7 @@ namespace OpenSourceTees.Models
         [Required]
         public string ImageUrl { get; set; }
 
+        [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
 
         [Required]
@@ -34,7 +35,6 @@ namespace OpenSourceTees.Models
         public string GetDesignerUserName()
         {
             ApplicationDbContext db = new ApplicationDbContext();
-
             return (from user in db.Users
                     where (user.Id == UserId)
                     select user.UserName).ToList()[0].ToString();
