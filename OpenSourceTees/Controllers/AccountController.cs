@@ -306,10 +306,7 @@ namespace OpenSourceTees.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            if (Request.IsAjaxRequest())
-                return code == null ? PartialView("Error") : PartialView();
-
-            return RedirectToAction("Index", "Home");
+            return code == null ? View("Error") : View();
         }
 
         //

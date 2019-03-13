@@ -27,8 +27,7 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home"); ;
         }
-
-        [Authorize]
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

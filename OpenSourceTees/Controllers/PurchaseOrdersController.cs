@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -59,11 +60,15 @@ namespace OpenSourceTees.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemPrice,Quantity,TotalPrice,ImageId,BuyerId")] PurchaseOrder purchaseOrder)
+        public async Task<ActionResult> Create([Bind(Include = "ItemPrice,Quantity,TotalPrice,ImageId,BuyerId")] PurchaseOrder purchaseOrder)
         {
             if (ModelState.IsValid)
             {
+                //create order processing object
+                CreateOrder(purchaseOrder.Id);
+
                 //send emails
+                await SendConfirmationEmails(purchaseOrder);
 
                 db.PurchaseOrders.Add(purchaseOrder);
                 db.SaveChanges();
@@ -76,6 +81,8 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
 
         // GET: PurchaseOrders/Delete/5
         public ActionResult Delete(string id)
@@ -104,6 +111,50 @@ namespace OpenSourceTees.Controllers
             db.PurchaseOrders.Remove(purchaseOrder);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private async Task SendConfirmationEmails(PurchaseOrder purchaseOrder)
+        {
+            EmailService email = new EmailService();
+
+            IdentityMessage buyerMessage = new IdentityMessage
+            {
+                Destination = purchaseOrder.ApplicationUser.Email,
+                Body = "",
+                Subject = "Your Order!"
+            };
+
+            //send email to buyer
+            await email.SendAsync(buyerMessage);
+
+
+            IdentityMessage sellerMessage = new IdentityMessage()
+            {
+                Destination = db.Users.Find(db.Images.Find(purchaseOrder.ImageId).UserId).Email,
+                Body = "",
+                Subject = "Someone Placed an Order!"
+
+            };
+
+            //send email to seller
+            await email.SendAsync(sellerMessage);
+        }
+
+        private void CreateOrder(string orderId)
+        {
+            OrderProcessing order = new OrderProcessing()
+            {
+                OrderId = orderId,
+                IsAccepted = false,
+                IsCanceled = false,
+                IsDelivered = false,
+                IsProcessed = false,
+                IsShipped = false,
+                IsEmailSent = false
+            };
+
+            db.OrderProcessings.Add(order);
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)
