@@ -36,6 +36,7 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // Post
         public ActionResult DeleteImage(string id)
         {
             if (Request.IsAjaxRequest()){
@@ -50,6 +51,7 @@ namespace OpenSourceTees.Controllers
 
         }
 
+        // GET
         [HttpGet]
         public ActionResult UploadImage()
         {
@@ -59,6 +61,7 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET
         [HttpPost]
         public ActionResult UploadImage(TeeShirtUploadViewModel tee)
         {
@@ -99,7 +102,7 @@ namespace OpenSourceTees.Controllers
 
         }
 
-
+        // POST
         [EnableCors(origins: "https://opensourceteeblob.blob.core.windows.net/", headers: "*", methods: "*")]
         public ActionResult Search(string keywords, int? SkipN, int? TakeN)
         {
@@ -142,6 +145,7 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET
         public ActionResult EditImage(string id)
         {
             if (id == null)
@@ -197,6 +201,7 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET
         public ActionResult Hot()
         {
             var list = (from i in db.Images
@@ -210,6 +215,7 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET
         public ActionResult New()
         {
 
@@ -222,7 +228,7 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
+        ]// GET
         public ActionResult ByUser(string id)
         {
             List<Image> userImages = (from r in db.Images where r.UserId == id select r).ToList();

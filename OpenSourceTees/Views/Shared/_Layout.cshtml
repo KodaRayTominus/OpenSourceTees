@@ -98,26 +98,50 @@
     @RenderSection("scripts", required: false)
 
     <script>
+        //Sets the main container if the div is empty
         $(function () {
             var val = $("#MainContainer").val();
+
+            //checks value of div
             if (val == "") {
+
+                //sets the div to home 
                 $.get("/Home/Home", function (r) {
                     //update ui with results
                     $("#MainContainer").html(r);
                 });
             }
 
+            //function for searching on keyup
             $("#search").keyup(function (e) {
+
+                //gets the value of the search string
                 var keywords = $("#search").val();
+
+                //grabs the page size value out of the URL
                 var takeN = GetURLParameter("takeN");
+
+                //checks value for null or 0
                 if (takeN == 0 || takeN == null) {
+
+                    //sets the page size to 10 objects 
                     takeN = 10;
                 }
+
+
+                //grabs the page skip value out of the URL
                 var skipN = GetURLParameter("skipN") + takeN;
+
+                //checks value for null, not a number or 0
                 if (skipN == null || skipN == 10 || isNaN(skipN)) {
+
+                    //sets it to 0
                     skipN = 0;
                 }
+
+                //calls the page for searching
                 $.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
+
                     //update ui with results
                     $("#MainContainer").html(r);
                 });
@@ -125,45 +149,78 @@
             });
 
         })
+
+        //functon for getting parameters out of url strings
         function GetURLParameter(sParam) {
+
+            // gets the url
             var sPageURL = window.location.search.substring(1);
+
+            //splits the url
             var sURLVariables = sPageURL.split('&');
+
+            //loops through the url sections
             for (var i = 0; i < sURLVariables.length; i++) {
+
+                //splits the sections into keys and values
                 var sParameterName = sURLVariables[i].split('=');
+
+                //if matches key
                 if (sParameterName[0] == sParam) {
+
+                    //return the value
                     return parseInt(sParameterName[1]);
                 }
             }
         }
 
+        //function called on success of ajax post
         function OnSuccess(result) {
+
+            //reload the login partial view
             $.get("/Shared/_LoginPartial", function (r) {
                 //update ui with results
                 $("#loginPartial").html(r);
             });
         }
 
+        //function called on failure of the ajax post
         function OnFailure(result) {
+
+            //alert the result
             alert(result);
         }
 
+        //ajax function for changing the page in a singlepage model
         function ChangePage(controller, view, data) {
+
+            //checks if there is data to use
             if (data != undefined) {
+
+                //gets the action 
                 $.get("/" + controller + "/" + view + "/" + data, function (r) {
                     //update ui with results
                     $("#MainContainer").html(r);
                 });
             }
-            //$.get("/Design/Search?keywords=" + keywords + "&skipN=" + skipN + "&takeN=" + takeN, function (r) {
+
+            //return page without data input
             $.get("/" + controller + "/" + view, function (r) {
                 //update ui with results
                 $("#MainContainer").html(r);
             });
         }
 
+        //calculates the total cost of an order
         function CalculateTotal() {
+
+            //gets the quantity
             var qty = parseInt($("#qty").val());
+
+            // gets the item price
             var price = parseFloat($("#price").val());
+
+            //calculates and sets the total price
             $("#totalPrice").val(String(parseFloat(qty * price)));
         }
     </script>
@@ -187,23 +244,23 @@
         var DEBUG;
         var APP_ASSETS_PATH;
 
+        //sets up weplayer
         b4w.register("TeeShirt_main", function (exports, require) {
 
-
+            //variables required for operation
             m_app = require("app");
             m_cfg = require("config");
             m_data = require("data");
             m_preloader = require("preloader");
             m_ver = require("version");
             m_tex = require("textures");
-
             m_scenes = require("scenes");
             m_mat = require("material");
             m_rgb = require("rgb");
             DEBUG = (m_ver.type() == "DEBUG");
             APP_ASSETS_PATH = m_cfg.get_std_assets_path();
 
-
+            //initializes the webplayer
             exports.init = function () {
                 m_app.init({
                     canvas_container_id: "main_canvas_container",
@@ -216,6 +273,7 @@
                 });
             }
 
+            //initialization handler
             function init_cb(canvas_elem, success) {
 
                 if (!success) {
@@ -225,12 +283,14 @@
                 load();
             }
 
+            //loads the files
             function load() {
 
                 var preloader_cont = document.getElementById("preloader_cont");
                 m_data.load("./Designs/TeeShirtToExport.json", load_cb);
             }
 
+            //sets up preload operation
             function preloader_cb(percentage) {
                 var prelod_dynamic_path = document.getElementById("prelod_dynamic_path");
                 var percantage_num = prelod_dynamic_path.nextElementSibling;
@@ -244,6 +304,7 @@
                 }
             }
 
+            //loading handler
             function load_cb(data_id, success) {
                 if (!success) {
                     console.log("b4w load failure");
@@ -253,6 +314,7 @@
 
             }
 
+            //function for calling functions displaying images on model
             image_onclick = function (imagePrice, ImageId, ImageUrl, userId) {
                 if ($("#ItemDetails").children().length == 0) {
                     spawnOrderForm();
@@ -262,6 +324,7 @@
                 setTimeout(function () { UpdateItemDetails(imagePrice, ImageId, userId); }, 1000);
             }
 
+            //loads the image onto the model
             load_image = function (imageURL) {
                 var attr = $("#sidenav").attr('hidden');
                 if (typeof attr !== typeof undefined && attr !== false) {
@@ -276,6 +339,7 @@
                 }
             }
 
+            //updates the order form to match the displayed image
             UpdateItemDetails = function (imagePrice, ImageId, userId) {
                 ($("#price")).val(String(imagePrice));
                 ($("#qty")).val(String(1));
@@ -286,6 +350,7 @@
                 }
             }
 
+            //spawns the order form
             spawnOrderForm = function () {
                 $.get("/PurchaseOrders/Create", function (r) {
                     //update ui with results
@@ -293,6 +358,7 @@
                 });
             }
 
+            //changes the models base color
             ChangeColor = function (colorButton) {
                 //alert($(colorButton).css("background-color"));
                 var rgb = $(colorButton).css("background-color").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);;
@@ -306,11 +372,13 @@
                 m_mat.set_diffuse_color(Shirt, "T-Shirt", [parseFloat(red / 255), parseFloat(green / 255), parseFloat(blue / 255), 0]);
             }
 
+            //function for creating interface
             function create_interface(obj) {
 
             }
         });
 
+        //starts the webplayer
         b4w.require("TeeShirt_main").init();
     </script>
 </body>

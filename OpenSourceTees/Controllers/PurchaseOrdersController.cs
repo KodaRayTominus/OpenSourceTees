@@ -113,6 +113,11 @@ namespace OpenSourceTees.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// sends emails to buyer and creator confirming the order
+        /// </summary>
+        /// <param name="purchaseOrder">purchase order emails need to be sent out on</param>
+        /// <returns>object representation of the task handled</returns>
         private async Task SendConfirmationEmails(PurchaseOrder purchaseOrder)
         {
             EmailService email = new EmailService();
@@ -140,6 +145,10 @@ namespace OpenSourceTees.Controllers
             await email.SendAsync(sellerMessage);
         }
 
+        /// <summary>
+        /// creates the OrderProcess object to keep track of the order
+        /// </summary>
+        /// <param name="orderId">Id of the order </param>
         private void CreateOrder(string orderId)
         {
             OrderProcessing order = new OrderProcessing()
