@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -355,6 +356,7 @@ namespace OpenSourceTees.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [EnableCors(origins: " https://opensourcetees.azurewebsites.net, https://localhost:44340, https://accounts.google.com/o/oauth2/v2", headers: "*", methods: "*")]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             if (Request.IsAjaxRequest())

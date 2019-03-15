@@ -228,7 +228,7 @@ namespace OpenSourceTees.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        ]// GET
+        // GET
         public ActionResult ByUser(string id)
         {
             List<Image> userImages = (from r in db.Images where r.UserId == id select r).ToList();

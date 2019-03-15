@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using OpenSourceTees.Models;
+using System.Configuration;
 
 namespace OpenSourceTees
 {
@@ -58,11 +59,10 @@ namespace OpenSourceTees
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(
+                clientId: ConfigurationManager.AppSettings["ClientId"],//"904882375197-4k79qs28276afnqm8bd47d1uil5ufifs.apps.googleusercontent.com"
+                clientSecret: ConfigurationManager.AppSettings["ClientSecret"]//"L3aQ1nNZKuh0QkgFsmGKnoqj"
+            );
         }
     }
 }

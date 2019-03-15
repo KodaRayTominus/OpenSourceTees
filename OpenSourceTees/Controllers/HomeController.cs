@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace OpenSourceTees.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
 
